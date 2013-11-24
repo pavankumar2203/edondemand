@@ -67,14 +67,14 @@ public class sendEmail extends HttpServlet {
 		String Time = request.getParameter("Time");
 		String Date = request.getParameter("Date");
 
-		String from = "bestestt@gmail.com";
-		String to = "bestestt@gmail.com";
+		String from = "edondemand7@gmail.com";
+		String to = "edondemand7@gmail.com";
 		String subject = "Course";
 		String message = "Hi Student,\n I will be teaching you this course on\n";
 		message += Time +"," + Date; 
 		message += "\nThanks,\n Pavan"; 
-		String login = "bestestt@gmail.com";
-		String password = "josephites";
+		String login = "edondemand7@gmail.com";
+		String password = "pa1heinz";
 
 		try {
 			Properties props = new Properties();
