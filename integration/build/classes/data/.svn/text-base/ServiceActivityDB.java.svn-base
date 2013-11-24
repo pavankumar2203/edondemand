@@ -1,0 +1,164 @@
+package data;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+
+import business.ServiceActivity;
+
+public class ServiceActivityDB {
+	public static ArrayList<ServiceActivity> getActivity(int subscriberId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<ServiceActivity> activitys = new ArrayList<ServiceActivity>();
+
+		try {
+			String activitySQL = "SELECT Activity_Id, Subscriber_Info.Subscriber_Id, Subscriber_Info.First_Name, Service.Service_Name, Activity_Datetime, Activity_Type, Log_Location "
+					+ "FROM Subscriber_Info join Subscriber_Activity join Service "
+					+ "on Subscriber_Info.Subscriber_Id = Subscriber_Activity.Subscriber_Id "
+					+ "and Service.Service_Id = Subscriber_Activity.Service_Id "
+					+ "WHERE Subscriber_Info.Subscriber_Id = "
+					+ subscriberId + ";";
+
+			ps = connection.prepareStatement(activitySQL);
+			rs = ps.executeQuery(activitySQL);
+
+			while (rs.next()) {
+				ServiceActivity activity = new ServiceActivity();
+				activity.setActivityId(Integer.parseInt(rs.getString(1)));
+				activity.setSubscriberId(subscriberId);
+				activity.setFirstName(rs.getString("First_Name"));
+				activity.setServiceName(rs.getString("Service_Name"));
+				activity.setActivityDatetime(Timestamp.valueOf(rs.getString("Activity_Datetime")));
+				activity.setActivityType(rs.getString("Activity_Type"));
+				activity.setLogLocation(rs.getString("Log_Location"));
+				activitys.add(activity);
+			}
+			return activitys;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+
+	public static ServiceActivity getActivityOne(int activityId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ServiceActivity activity = new ServiceActivity();
+
+		try {
+			String activitySQL = "SELECT Activity_Id, Subscriber_Id, Service_Id, Activity_Datetime, Activity_Type, Log_Location "
+					+ "FROM Subscriber_Activity "
+					+ "WHERE Subscriber_Activity.Activity_Id = "
+					+ activityId
+					+ ";";
+
+			ps = connection.prepareStatement(activitySQL);
+			rs = ps.executeQuery(activitySQL);
+
+			if (rs.next()) {
+				activity.setActivityId(activityId);
+				activity.setSubscriberId(Integer.parseInt(rs
+						.getString("Subscriber_Id")));
+				activity.setServiceId(Integer.parseInt(rs
+						.getString("Service_Id")));
+				activity.setActivityDatetime(Timestamp.valueOf(rs
+						.getString("Activity_Datetime")));
+				activity.setActivityType(rs.getString("Activity_Type"));
+				activity.setLogLocation(rs.getString("Log_Location"));
+			}
+			return activity;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+
+	public static ArrayList<ServiceActivity> getActivityDate(Timestamp from,
+			Timestamp to, int subscriberId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<ServiceActivity> activitys = new ArrayList<ServiceActivity>();
+
+		String query = "SELECT Activity_Id, Subscriber_Info.First_Name, Service_Name, Activity_Datetime, Activity_Type, Log_Location "
+				+ "FROM Subscriber_Info join Subscriber_Activity join Service "
+				+ "on Subscriber_Info.Subscriber_Id = Subscriber_Activity.Subscriber_Id "
+				+ "and Service.Service_Id = Subscriber_Activity.Service_Id "
+				+ "where Activity_Datetime between '"
+				+ from + "' and '" + to + "' and Subscriber_Activity.Subscriber_Id = " + subscriberId
+				+ " order by Activity_Datetime; ";
+
+		try {
+			ps = connection.prepareStatement(query);
+
+			rs = ps.executeQuery();
+			while (rs.next()) { // While there are more items, add the purchase
+								// history to the list
+				ServiceActivity activity = new ServiceActivity();
+
+				activity.setActivityId(Integer.parseInt(rs.getString("Activity_Id")));
+				activity.setFirstName(rs.getString("First_Name"));
+				activity.setServiceName(rs.getString("Service_Name"));
+				activity.setActivityDatetime(Timestamp.valueOf(rs
+						.getString("Activity_Datetime")));
+				activity.setActivityType(rs.getString("Activity_Type"));
+				activity.setLogLocation(rs.getString("Log_Location"));
+
+				activitys.add(activity);
+			}
+			return activitys;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+
+	public static boolean editServiceActivity(ServiceActivity activity) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String editSubnetSQL = "UPDATE Subscriber_Activity SET "
+					+ "Activity_Datetime = ?, " + "Activity_Type = ?, "
+					+ "Log_Location = ? " + "WHERE Activity_Id = "
+					+ activity.getActivityId() + ";";
+
+			ps = connection.prepareStatement(editSubnetSQL);
+			ps.setString(1, activity.getActivityDatetime().toString());
+			ps.setString(2, activity.getActivityType());
+			ps.setString(3, activity.getLogLocation());
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+}

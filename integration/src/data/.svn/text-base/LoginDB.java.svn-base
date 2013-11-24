@@ -1,0 +1,228 @@
+package data;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import business.Login;
+
+public class LoginDB {
+
+	public static Login getLogin(String loginName, String password) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		Login login = null;
+
+		try {
+			String loginSQL = "SELECT * "
+					+ "FROM Subscriber_Login_Info "
+					+ "WHERE Login_Name = '" + loginName + "' AND Password = '"
+					+ password + "';";
+
+			ps = connection.prepareStatement(loginSQL);
+			rs = ps.executeQuery(loginSQL);
+
+			if (rs.next()) {
+				login = new Login();
+				login.setSubscriberId(Integer.parseInt(rs.getString(1)));
+				login.setLoginName(rs.getString("Login_Name"));
+				login.setPassword(rs.getString("Password"));
+				login.setQuestion1(rs.getString("Question_1"));
+				login.setAnswer1(rs.getString("Answer_1"));
+				login.setQuestion2(rs.getString("Question_2"));
+				login.setAnswer2(rs.getString("Answer_2"));
+				login.setQuestion3(rs.getString("Question_3"));
+				login.setAnswer3(rs.getString("Answer_3"));
+				
+				return login;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static Login getLoginSId(int subscriberId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		Login login = null;
+
+		try {
+			String loginSQL = "SELECT * "
+					+ "FROM Subscriber_Login_Info "
+					+ "WHERE Subscriber_Id = " + subscriberId + ";";
+
+			ps = connection.prepareStatement(loginSQL);
+			rs = ps.executeQuery(loginSQL);
+
+			if (rs.next()) {
+				login = new Login();
+				login.setSubscriberId(subscriberId);
+				login.setLoginName(rs.getString("Login_Name"));
+				login.setPassword(rs.getString("Password"));
+				login.setQuestion1(rs.getString("Question_1"));
+				login.setAnswer1(rs.getString("Answer_1"));
+				login.setQuestion2(rs.getString("Question_2"));
+				login.setAnswer2(rs.getString("Answer_2"));
+				login.setQuestion3(rs.getString("Question_3"));
+				login.setAnswer3(rs.getString("Answer_3"));
+
+				return login;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static Login getLoginName(String loginName) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		Login login = null;
+
+		try {
+			String loginSQL = "SELECT * "
+					+ "FROM Subscriber_Login_Info "
+					+ "WHERE Login_Name = '" + loginName + "';";
+
+			ps = connection.prepareStatement(loginSQL);
+			rs = ps.executeQuery(loginSQL);
+
+			if (rs.next()) {
+				login = new Login();
+				login.setSubscriberId(Integer.parseInt(rs.getString(1)));
+				login.setLoginName(rs.getString("Login_Name"));
+				login.setPassword(rs.getString("Password"));
+				login.setQuestion1(rs.getString("Question_1"));
+				login.setAnswer1(rs.getString("Answer_1"));
+				login.setQuestion2(rs.getString("Question_2"));
+				login.setAnswer2(rs.getString("Answer_2"));
+				login.setQuestion3(rs.getString("Question_3"));
+				login.setAnswer3(rs.getString("Answer_3"));
+
+				return login;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean editLogin(Login login, int subscriberId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		
+		try {
+			String editLoginSQL = "UPDATE Subscriber_Login_Info SET "
+					+ "Login_Name = ?, "
+					+ "Password = ?, "
+	                + "Question_1 = ?, "
+	                + "Answer_1 = ?, "
+	                + "Question_2 = ?, "
+	                + "Answer_2 = ?, "
+	                + "Question_3 = ?, "
+	                + "Answer_3 = ? "
+	                + "WHERE Subscriber_Id = " + subscriberId + ";";
+			
+	                ps = connection.prepareStatement(editLoginSQL);
+	                ps.setString(1, login.getLoginName());
+	                ps.setString(2, login.getPassword());
+	                ps.setString(3, login.getQuestion1());
+	                ps.setString(4, login.getAnswer1());
+	                ps.setString(5, login.getQuestion2());
+	                ps.setString(6, login.getAnswer2());
+	                ps.setString(7, login.getQuestion3());
+	                ps.setString(8, login.getAnswer3());
+	               
+	                return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean editPassword(Login login, String newPassword) {
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+
+        String query =
+                "UPDATE Subscriber_Login_Info SET "
+                + "Password = ? "
+                + "WHERE Subscriber_Id = " + login.getSubscriberId() + ";";
+        try {
+            ps = connection.prepareStatement(query);
+            ps.setString(1, newPassword);
+            
+            return (ps.executeUpdate() == 1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(connection);
+        }
+    }
+	
+	public static boolean addLogin(int subscriberId, String loginName, String password) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		String query = "INSERT INTO Subscriber_Login_Info "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, subscriberId);
+			ps.setString(2, loginName);
+			ps.setString(3, password);
+			ps.setString(4, "please enter question1");
+			ps.setString(5, "please enter answer1");
+			ps.setString(6, "please enter question2");
+			ps.setString(7, "please enter answer2");
+			ps.setString(8, "please enter question3");
+			ps.setString(9, "please enter answer3");
+			
+			return ps.executeUpdate() == 1; 
+											
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+}

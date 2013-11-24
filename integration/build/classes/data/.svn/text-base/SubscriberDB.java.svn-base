@@ -1,0 +1,260 @@
+package data;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import business.Subscriber;
+
+public class SubscriberDB {
+	public static Subscriber getSubscriber(int subscriberId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Subscriber subscriber1 = null;
+
+		try {
+			String subscriberSQL = "SELECT * FROM Subscriber_Info "
+					+ "WHERE Subscriber_Id = " + subscriberId + ";";
+			ps = connection.prepareStatement(subscriberSQL);
+			rs = ps.executeQuery(subscriberSQL);
+
+			if (rs.next()) {
+				subscriber1 = new Subscriber();
+				subscriber1.setSubscriberId(Integer.parseInt(rs.getString(1)));
+				subscriber1.setFirstName(rs.getString("First_Name"));
+				subscriber1.setMi(rs.getString("MI"));
+				subscriber1.setLastName(rs.getString("Last_Name"));
+				subscriber1.setAddress1(rs.getString("Address_1"));
+				subscriber1.setAddress2(rs.getString("Address_2"));
+				subscriber1.setCity(rs.getString("City"));
+				subscriber1.setState(rs.getString("State"));
+				subscriber1.setZipCode(rs.getString("Zip_Code"));
+				subscriber1.setPhone1(rs.getString("Phone_1"));
+				subscriber1.setPhone2(rs.getString("Phone_2"));
+				subscriber1.setPhone3(rs.getString("Phone_3"));
+				subscriber1.setEmail(rs.getString("Email"));
+
+				return subscriber1;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+
+	public static boolean editSubscriber(Subscriber subscriber) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String editSubscriberSQL = "UPDATE Subscriber_Info SET "
+					+ "First_Name = ?, " + "MI = ?, " + "Last_Name = ?, "
+					+ "Address_1 = ?, " + "Address_2 = ?, " + "City = ?, "
+					+ "State = ?, " + "Zip_Code = ?, " + "Phone_1 = ?, "
+					+ "Phone_2 = ?, " + "Phone_3 = ?, " + "Email = ? "
+					+ "WHERE Subscriber_Id = " + subscriber.getSubscriberId() + ";";
+
+			ps = connection.prepareStatement(editSubscriberSQL);
+			ps.setString(1, subscriber.getFirstName());
+			ps.setString(2, subscriber.getMi());
+			ps.setString(3, subscriber.getLastName());
+			ps.setString(4, subscriber.getAddress1());
+			ps.setString(5, subscriber.getAddress2());
+			ps.setString(6, subscriber.getCity());
+			ps.setString(7, subscriber.getState());
+			ps.setString(8, subscriber.getZipCode());
+			ps.setString(9, subscriber.getPhone1());
+			ps.setString(10, subscriber.getPhone2());
+			ps.setString(11, subscriber.getPhone3());
+			ps.setString(12, subscriber.getEmail());
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+
+	public static ArrayList<Subscriber> getSubscriberList() {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Subscriber> subscribers = new ArrayList<Subscriber>();
+
+		try {
+			String subscriberSQL = "SELECT * FROM Subscriber_Info ";
+
+			ps = connection.prepareStatement(subscriberSQL);
+			rs = ps.executeQuery(subscriberSQL);
+
+			while (rs.next()) {
+				Subscriber subscriber = new Subscriber();
+				subscriber.setSubscriberId(Integer.parseInt(rs.getString(1)));
+				subscriber.setFirstName(rs.getString("First_Name"));
+				subscriber.setMi(rs.getString("MI"));
+				subscriber.setLastName(rs.getString("Last_Name"));
+				subscriber.setAddress1(rs.getString("Address_1"));
+				subscriber.setAddress2(rs.getString("Address_2"));
+				subscriber.setCity(rs.getString("City"));
+				subscriber.setState(rs.getString("State"));
+				subscriber.setZipCode(rs.getString("Zip_Code"));
+				subscriber.setPhone1(rs.getString("Phone_1"));
+				subscriber.setPhone2(rs.getString("Phone_2"));
+				subscriber.setPhone3(rs.getString("Phone_3"));
+				subscriber.setEmail(rs.getString("Email"));
+				subscribers.add(subscriber);
+			}
+			return subscribers;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+
+	public static boolean addSubscriber(Subscriber subscriber) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		String query = "INSERT INTO Subscriber_Info (First_Name, MI, Last_Name, Address_1, Address_2, City, State, Zip_Code, Phone_1, Phone_2, Phone_3, Email) "
+				+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		try {
+			ps = connection.prepareStatement(query);
+			//ps.setInt(1, subscriber.getSubscriberId());
+			ps.setString(1, subscriber.getFirstName());
+			ps.setString(2, subscriber.getMi());
+			ps.setString(3, subscriber.getLastName());
+			ps.setString(4, subscriber.getAddress1());
+			ps.setString(5, subscriber.getAddress2());
+			ps.setString(6, subscriber.getCity());
+			ps.setString(7, subscriber.getState());
+			ps.setString(8, subscriber.getZipCode());
+			ps.setString(9, subscriber.getPhone1());
+			ps.setString(10, subscriber.getPhone2());
+			ps.setString(11, subscriber.getPhone3());
+			ps.setString(12, subscriber.getEmail());
+
+			return ps.executeUpdate() == 1; 
+											
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static ArrayList<Subscriber> searchSubscriber(String firstName, String lastName) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Subscriber> subscribers = new ArrayList<Subscriber>();
+
+		try {
+			String subscriberSQL = "SELECT * "
+					+ "FROM Subscriber_Info "
+					+ "WHERE First_Name = '" + firstName + "' AND Last_Name = '"
+					+ lastName + "';";
+
+			ps = connection.prepareStatement(subscriberSQL);
+			rs = ps.executeQuery(subscriberSQL);
+
+			while (rs.next()) {
+				Subscriber subscriber = new Subscriber();
+				subscriber.setSubscriberId(Integer.parseInt(rs.getString(1)));
+				subscriber.setFirstName(rs.getString("First_Name"));
+				subscriber.setMi(rs.getString("MI"));
+				subscriber.setLastName(rs.getString("Last_Name"));
+				subscriber.setAddress1(rs.getString("Address_1"));
+				subscriber.setAddress2(rs.getString("Address_2"));
+				subscriber.setCity(rs.getString("City"));
+				subscriber.setState(rs.getString("State"));
+				subscriber.setZipCode(rs.getString("Zip_Code"));
+				subscriber.setPhone1(rs.getString("Phone_1"));
+				subscriber.setPhone2(rs.getString("Phone_2"));
+				subscriber.setPhone3(rs.getString("Phone_3"));
+				subscriber.setEmail(rs.getString("Email"));
+				subscribers.add(subscriber);
+			}
+			return subscribers;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static int getMaxSubscriber() {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			String subscriberSQL = "SELECT MAX(Subscriber_Id) FROM Subscriber_Info ";
+			ps = connection.prepareStatement(subscriberSQL);
+			rs = ps.executeQuery(subscriberSQL);
+
+			if (rs.next()) {
+				int subscriberId = Integer.parseInt(rs.getString("MAX(Subscriber_Id)"));
+				return subscriberId;
+			} else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean deleteSubscriber(int subscriberId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String deleteSegmentSQL = "DELETE FROM Subscriber_Info "
+					+ "WHERE Subscriber_Id = " + subscriberId + ";";
+
+			ps = connection.prepareStatement(deleteSegmentSQL);
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+}

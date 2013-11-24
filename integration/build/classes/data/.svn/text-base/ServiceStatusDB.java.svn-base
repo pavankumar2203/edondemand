@@ -1,0 +1,165 @@
+package data;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import business.ServiceStatus;
+
+public class ServiceStatusDB {
+	public static ArrayList<ServiceStatus> getStatus(int subscriberId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		ArrayList<ServiceStatus> statuss = new ArrayList<ServiceStatus>();
+
+		try {
+			String statusSQL = "SELECT Subscriber_Service.Subscriber_Id, Subscriber_Service.Service_Id, "
+					+ "Service.Service_Name, Subscriber_Service.Status "
+					+ "FROM Subscriber_Service join Service "
+					+ "ON Subscriber_Service.Service_Id = Service.Service_Id "
+					+ "WHERE Subscriber_Service.Subscriber_Id = " + subscriberId + ";";
+
+			ps = connection.prepareStatement(statusSQL);
+			rs = ps.executeQuery(statusSQL);
+
+			while (rs.next()) {
+				ServiceStatus status = new ServiceStatus();
+				status.setSubscriberId(Integer.parseInt(rs.getString(1)));
+				status.setServiceId(Integer.parseInt(rs.getString(2)));
+				status.setServiceName(rs.getString(3));
+				status.setStatus(rs.getString("Status"));
+				statuss.add(status);
+			}
+			return statuss;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+
+	public static ServiceStatus getServiceOne(int subscriberId, int serviceId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ServiceStatus status = null;
+
+		try {
+			String accountSQL = "SELECT Subscriber_Service.Subscriber_Id, Subscriber_Service.Service_Id, "
+					+ "Service.Service_Name, Subscriber_Service.Status "
+					+ "FROM Subscriber_Service join Service "
+					+ "ON Subscriber_Service.Service_Id = Service.Service_Id "
+					+ "WHERE Subscriber_Service.Subscriber_Id = " + subscriberId
+					+ " AND Subscriber_Service.Service_Id = " + serviceId + ";";
+
+			ps = connection.prepareStatement(accountSQL);
+			rs = ps.executeQuery(accountSQL);
+
+			if (rs.next()) {
+				status = new ServiceStatus();
+				status.setSubscriberId(subscriberId);
+				status.setServiceName(rs.getString("Service_Name"));
+				status.setServiceId(serviceId);
+				status.setStatus(rs.getString("Status"));
+				return status;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+
+	public static boolean editServiceStatus(ServiceStatus status) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String editSubnetSQL = "UPDATE Subscriber_Service SET "
+					+ "Status = ? " + "WHERE Subscriber_Id = "
+					+ status.getSubscriberId() + " AND Service_Id = "
+					+ status.getServiceId() + ";";
+
+			ps = connection.prepareStatement(editSubnetSQL);
+			ps.setString(1, status.getStatus());
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean addServiceStatus(int subscriberId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		ArrayList<ServiceStatus> statuss = new ArrayList<ServiceStatus>();
+
+		try {
+			String serviceSQL = "SELECT Service_Id FROM Service ";
+			
+			ps = connection.prepareStatement(serviceSQL);
+			rs = ps.executeQuery(serviceSQL);
+			
+			while (rs.next()) {
+				ServiceStatus status = new ServiceStatus();
+				status.setServiceId(Integer.parseInt(rs.getString(1)));
+				addOneServiceStatus(subscriberId, status.getServiceId());
+				statuss.add(status);
+			}
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+				return false;
+		  } finally {
+			  DBUtil.closeResultSet(rs);
+			  DBUtil.closePreparedStatement(ps);
+			  pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean addOneServiceStatus(int subscriberId, int serviceId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		String query = "INSERT INTO Subscriber_Service "
+				+ "VALUES(?, ?, ?)";
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, subscriberId);
+			ps.setInt(2, serviceId);
+			ps.setString(3, "inactive");
+			return ps.executeUpdate() == 1; 
+											
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+}

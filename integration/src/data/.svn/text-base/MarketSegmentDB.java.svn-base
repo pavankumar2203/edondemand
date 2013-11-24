@@ -1,0 +1,254 @@
+package data;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import business.MarketSegment;
+
+public class MarketSegmentDB {
+	public static ArrayList<MarketSegment> getMarketSegment(int subscriberId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		ArrayList<MarketSegment> segments = new ArrayList<MarketSegment>();
+
+		try {
+			String marketSegmentSQL = "SELECT Subscriber_Market_Segment.Subscriber_Id, Subscriber_Market_Segment.Segment_Id, Segment_Name "
+					+ "FROM Subscriber_Market_Segment JOIN Market_Segment "
+					+ "ON Subscriber_Market_Segment.Segment_Id = Market_Segment.Segment_Id "
+					+ "WHERE Subscriber_Market_Segment.Subscriber_Id = "
+					+ subscriberId + ";";
+
+			ps = connection.prepareStatement(marketSegmentSQL);
+			rs = ps.executeQuery(marketSegmentSQL);
+
+			while (rs.next()) {
+				MarketSegment marketSegment = new MarketSegment();
+				marketSegment.setSubscriberId(Integer.parseInt(rs.getString(1)));
+				marketSegment.setSegmentId(Integer.parseInt(rs.getString(2)));
+				marketSegment.setSegmentName(rs.getString(3));
+				segments.add(marketSegment);
+			}
+			return segments;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+
+	public static MarketSegment getSegmentOne(int subscriberId, int segmentId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		MarketSegment segment = null;
+
+		try {
+			String accountSQL = "SELECT Subscriber_Market_Segment.Subscriber_Id, Subscriber_Market_Segment.Segment_Id, Segment_Name "
+					+ "FROM Subscriber_Market_Segment JOIN Market_Segment "
+					+ "ON Subscriber_Market_Segment.Segment_Id = Market_Segment.Segment_Id "
+					+ "WHERE Subscriber_Market_Segment.Subscriber_Id = " + subscriberId
+					+ " AND Subscriber_Market_Segment.Segment_Id = " + segmentId + ";";
+
+			ps = connection.prepareStatement(accountSQL);
+			rs = ps.executeQuery(accountSQL);
+
+			if (rs.next()) {
+				segment = new MarketSegment();
+				segment.setSubscriberId(subscriberId);
+				segment.setSegmentId(segmentId);
+				segment.setSegmentName(rs.getString("Segment_Name"));
+				return segment;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static int getSegmentId(String segmentName) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			String accountSQL = "SELECT Segment_Id "
+					+ "FROM Market_Segment "
+					+ "WHERE Segment_Name = '" + segmentName + "';";
+
+			ps = connection.prepareStatement(accountSQL);
+			rs = ps.executeQuery(accountSQL);
+
+			if (rs.next()) {
+				int segmentId = Integer.parseInt(rs.getString("Segment_Id"));
+				return segmentId;
+			} else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean editMarketSegment(MarketSegment segment) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String editAccountSQL = "UPDATE Subscriber_Market_Segment SET "
+					+ "Segment_Id = ? "
+					+ "WHERE Segment_Name = " + segment.getSegmentName() + ";";
+
+			ps = connection.prepareStatement(editAccountSQL);
+			ps.setInt(1, segment.getSegmentId());
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean deleteSubscriberSegment(int subscriberId, int segmentId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String editSegmentSQL = "DELETE FROM Subscriber_Market_Segment "
+					+ "WHERE Subscriber_Id = " + subscriberId + " AND Segment_Id = " + segmentId + ";";
+
+			ps = connection.prepareStatement(editSegmentSQL);
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean addSegment(String segmentName) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		String query = "INSERT INTO Market_Segment(Segment_Name) "
+				+ "VALUES (?)";
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setString(1, segmentName);
+			
+			return ps.executeUpdate() == 1; 
+											
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean addSubscriberSegment(MarketSegment segment) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		String query = "INSERT INTO Subscriber_Market_Segment "
+				+ "VALUES (?, ?)";
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, segment.getSubscriberId());
+			ps.setInt(2, segment.getSegmentId());
+			
+			return ps.executeUpdate() == 1; 
+											
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static ArrayList<MarketSegment> getSegmentList() {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<MarketSegment> segments = new ArrayList<MarketSegment>();
+
+		try {
+			String segmentSQL = "SELECT Segment_Name FROM Market_Segment WHERE Segment_Name <> 'All'; ";
+
+			ps = connection.prepareStatement(segmentSQL);
+			rs = ps.executeQuery(segmentSQL);
+
+			while (rs.next()) {
+				MarketSegment segment = new MarketSegment();
+				segment.setSegmentName(rs.getString(1));
+				segments.add(segment);
+			}
+			return segments;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean deleteMarketSegment(String segmentName) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String deleteSegmentSQL = "DELETE FROM Market_Segment "
+					+ "WHERE Segment_Name = '" + segmentName + "';";
+
+			ps = connection.prepareStatement(deleteSegmentSQL);
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+}

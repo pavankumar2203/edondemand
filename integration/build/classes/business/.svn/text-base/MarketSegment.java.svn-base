@@ -1,0 +1,42 @@
+package business;
+
+public class MarketSegment implements java.io.Serializable{
+	
+	private int subscriberId;
+	private int segmentId;
+	private String segmentName;
+	
+	public MarketSegment(){
+	}
+
+	public MarketSegment(int subscriberId, int segmentId, String segmentName) {
+		super();
+		this.subscriberId = subscriberId;
+		this.segmentId = segmentId;
+		this.segmentName = segmentName;
+	}
+
+	public int getSubscriberId() {
+		return subscriberId;
+	}
+
+	public void setSubscriberId(int subscriberId) {
+		this.subscriberId = subscriberId;
+	}
+
+	public int getSegmentId() {
+		return segmentId;
+	}
+
+	public void setSegmentId(int segmentId) {
+		this.segmentId = segmentId;
+	}
+
+	public String getSegmentName() {
+		return segmentName;
+	}
+
+	public void setSegmentName(String segmentName) {
+		this.segmentName = segmentName;
+	}	
+}

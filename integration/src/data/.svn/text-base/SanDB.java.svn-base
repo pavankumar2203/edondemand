@@ -1,0 +1,210 @@
+package data;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import business.Account;
+import business.San;
+
+public class SanDB {
+	public static boolean editSan(Account account) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String editAccountSQL = "UPDATE San_Info SET "
+					+ "San_HostName = ? "
+					+ "WHERE San_Id = " + account.getSanId() + ";";
+
+			ps = connection.prepareStatement(editAccountSQL);
+			//ps.setString(1, account.getSanIpAddress());
+			ps.setString(1, account.getSanHostName());
+			//ps.setString(3, account.getSanSSID());
+			//ps.setString(4, account.getSanPassword());
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean editSan(San san) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String editAccountSQL = "UPDATE San_Info SET "
+					+ "San_SSID = ?, "
+					+ "San_Password = ? "
+					+ "WHERE San_Id = " + san.getSanId() + ";";
+
+			ps = connection.prepareStatement(editAccountSQL);		
+			ps.setString(1, san.getSanSSID());
+			ps.setString(2, san.getSanPassword());
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static int getSanId(String sanIpAddress) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			String getSanSQL = "SELECT San_Id "
+					+ "FROM San_Info "
+					+ "WHERE San_Ip_Address = '" + sanIpAddress + "';";
+
+			ps = connection.prepareStatement(getSanSQL);
+			rs = ps.executeQuery(getSanSQL);
+			if (rs.next()) {
+				int sanId = Integer.parseInt(rs.getString("San_Id"));
+				return sanId;
+			} else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean addSan(San san) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		String query = "INSERT INTO San_Info (San_Ip_Address, San_HostName, San_Polltime, San_SSID, San_Password) "
+				+ "VALUES (?, ?, ?, ?, ?)";
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setString(1, san.getSanIpAddress());
+			ps.setString(2, san.getSanHostName());
+			ps.setTimestamp(3, new java.sql.Timestamp(new java.util.Date().getTime()));
+			ps.setString(4, san.getSanSSID());
+			ps.setString(5, san.getSanPassword());
+			
+			return ps.executeUpdate() == 1; 
+											
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static San getSan(int subscriberId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		San san = null;
+
+		try {
+			String loginSQL = "SELECT San_Info.San_Id, San_SSID, San_Password, San_Ip_Address "
+					+ "FROM San_Info JOIN Subscriber_Info JOIN Subscriber_Account_Info "
+					+ "ON Subscriber_Info.Subscriber_Id = Subscriber_Account_Info.Subscriber_Id "
+					+ "AND Subscriber_Account_Info.San_Id = San_Info.San_Id "
+					+ "WHERE Subscriber_Info.Subscriber_Id = "
+					+ subscriberId + ";";
+
+			ps = connection.prepareStatement(loginSQL);
+			rs = ps.executeQuery(loginSQL);
+
+			if (rs.next()) {
+				san = new San();
+				san.setSanId(Integer.parseInt(rs.getString("San_Id")));
+				san.setSanSSID(rs.getString("San_SSID"));
+				san.setSanPassword(rs.getString("San_Password"));
+				san.setSanIpAddress(rs.getString("San_Ip_Address"));
+				
+				return san;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static ArrayList<San> getSanList() {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<San> sans = new ArrayList<San>();
+
+		try {
+			String sanSQL = "SELECT San_Ip_Address, San_HostName FROM San_Info; ";
+
+			ps = connection.prepareStatement(sanSQL);
+			rs = ps.executeQuery(sanSQL);
+
+			while (rs.next()) {
+				San san = new San();
+				san.setSanIpAddress(rs.getString(1));
+				san.setSanHostName(rs.getString(2));
+				sans.add(san);
+			}
+			return sans;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean deleteSan(String sanHostName) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String deleteSegmentSQL = "DELETE FROM San_Info "
+					+ "WHERE San_HostName = '" + sanHostName + "';";
+
+			ps = connection.prepareStatement(deleteSegmentSQL);
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+}

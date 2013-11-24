@@ -1,0 +1,96 @@
+package business;
+
+import java.sql.Timestamp;
+
+public class ServiceActivity implements java.io.Serializable{
+
+	private int activityId;
+	private int subscriberId;
+	private String firstName;
+	private int serviceId;
+	private String serviceName;
+	private Timestamp activityDatetime;
+	private String activityType;
+	private String logLocation;
+	
+	public ServiceActivity(){		
+	}
+
+	public ServiceActivity(int activityId, int subscriberId, String firstName,
+			int serviceId, String serviceName, Timestamp activityDatetime,
+			String activityType, String logLocation) {
+		super();
+		this.activityId = activityId;
+		this.subscriberId = subscriberId;
+		this.firstName = firstName;
+		this.serviceId = serviceId;
+		this.serviceName = serviceName;
+		this.activityDatetime = activityDatetime;
+		this.activityType = activityType;
+		this.logLocation = logLocation;
+	}
+
+	public int getActivityId() {
+		return activityId;
+	}
+
+	public void setActivityId(int activityId) {
+		this.activityId = activityId;
+	}
+
+	public int getSubscriberId() {
+		return subscriberId;
+	}
+
+	public void setSubscriberId(int subscriberId) {
+		this.subscriberId = subscriberId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public int getServiceId() {
+		return serviceId;
+	}
+
+	public void setServiceId(int serviceId) {
+		this.serviceId = serviceId;
+	}
+
+	public String getServiceName() {
+		return serviceName;
+	}
+
+	public void setServiceName(String serviceName) {
+		this.serviceName = serviceName;
+	}
+
+	public Timestamp getActivityDatetime() {
+		return activityDatetime;
+	}
+
+	public void setActivityDatetime(Timestamp activityDatetime) {
+		this.activityDatetime = activityDatetime;
+	}
+
+	public String getActivityType() {
+		return activityType;
+	}
+
+	public void setActivityType(String activityType) {
+		this.activityType = activityType;
+	}
+
+	public String getLogLocation() {
+		return logLocation;
+	}
+
+	public void setLogLocation(String logLocation) {
+		this.logLocation = logLocation;
+	}	
+}

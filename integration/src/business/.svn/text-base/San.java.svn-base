@@ -1,0 +1,75 @@
+package business;
+
+import java.sql.Timestamp;
+
+public class San {
+	
+	private int sanId;
+	private String sanIpAddress;
+	private String sanHostName;
+	private Timestamp sanPolltime;
+	private String sanSSID;
+	private String sanPassword;
+
+	public San(){		
+	}	
+
+	public San(int sanId, String sanIpAddress, String sanHostName,
+			Timestamp sanPolltime, String sanSSID, String sanPassword) {
+		super();
+		this.sanId = sanId;
+		this.sanIpAddress = sanIpAddress;
+		this.sanHostName = sanHostName;
+		this.sanPolltime = sanPolltime;
+		this.sanSSID = sanSSID;
+		this.sanPassword = sanPassword;
+	}
+
+	public int getSanId() {
+		return sanId;
+	}
+
+	public void setSanId(int sanId) {
+		this.sanId = sanId;
+	}
+
+	public String getSanIpAddress() {
+		return sanIpAddress;
+	}
+
+	public void setSanIpAddress(String sanIpAddress) {
+		this.sanIpAddress = sanIpAddress;
+	}
+
+	public String getSanHostName() {
+		return sanHostName;
+	}
+
+	public void setSanHostName(String sanHostName) {
+		this.sanHostName = sanHostName;
+	}
+
+	public Timestamp getSanPolltime() {
+		return sanPolltime;
+	}
+
+	public void setSanPolltime(Timestamp sanPolltime) {
+		this.sanPolltime = sanPolltime;
+	}
+
+	public String getSanSSID() {
+		return sanSSID;
+	}
+
+	public void setSanSSID(String sanSSID) {
+		this.sanSSID = sanSSID;
+	}
+
+	public String getSanPassword() {
+		return sanPassword;
+	}
+
+	public void setSanPassword(String sanPassword) {
+		this.sanPassword = sanPassword;
+	}		
+}

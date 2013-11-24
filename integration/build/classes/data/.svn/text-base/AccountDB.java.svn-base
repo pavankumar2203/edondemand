@@ -1,0 +1,148 @@
+package data;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+
+import business.Account;
+
+public class AccountDB {
+
+	public static Account getAccount(int subscriberId) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Account account = null;
+
+		try {
+			String accountSQL = "SELECT Subscriber_Id, Account_Number, Number_Of_Sip, Status, San_Info.San_Id, San_Ip_Address, San_HostName, San_Polltime, San_SSID, San_Password "
+					+ "FROM Subscriber_Account_Info JOIN San_Info "
+					+ "on Subscriber_Account_Info.San_Id = San_Info.San_Id "
+					+ "WHERE Subscriber_Id = " + subscriberId + ";";
+
+			ps = connection.prepareStatement(accountSQL);
+			rs = ps.executeQuery(accountSQL);
+
+			if (rs.next()) {
+				account = new Account();
+				account.setSubscriberId(Integer.parseInt(rs.getString(1)));
+				account.setAccountNumber(rs.getString("Account_Number"));				
+				account.setNumberOfSip(Integer.parseInt(rs.getString("Number_Of_Sip")));
+				account.setStatus(rs.getString("Status"));
+				account.setSanId(Integer.parseInt(rs.getString(5)));
+				account.setSanIpAddress(rs.getString("San_Ip_Address"));
+				account.setSanHostName(rs.getString("San_HostName"));
+				account.setSanPolltime(Timestamp.valueOf(rs.getString("San_Polltime")));
+				account.setSanSSID(rs.getString("San_SSID"));
+				account.setSanPassword(rs.getString("San_Password"));
+
+				return account;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBUtil.closeResultSet(rs);
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+
+	public static boolean editAccount(Account account) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String editAccountSQL = "UPDATE Subscriber_Account_Info SET "
+					+ "Number_Of_Sip = ? "
+					+ "WHERE Subscriber_Id = " + account.getSubscriberId() + ";";
+
+			ps = connection.prepareStatement(editAccountSQL);
+			ps.setInt(1, account.getNumberOfSip());
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}	
+	
+	public static boolean editAccountStatus(Account account) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String editAccountSQL = "UPDATE Subscriber_Account_Info SET "
+					+ "Status = ? "
+					+ "WHERE Subscriber_Id = " + account.getSubscriberId() + ";";
+
+			ps = connection.prepareStatement(editAccountSQL);
+			ps.setString(1, account.getStatus());
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}	
+	
+	public static boolean addAccount(Account account) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		String query = "INSERT INTO Subscriber_Account_Info "
+				+ "VALUES (?, ?, ?, ?, ?)";
+		try {
+			ps = connection.prepareStatement(query);
+			ps.setInt(1, account.getSubscriberId());
+			ps.setString(2, account.getAccountNumber());
+			ps.setInt(3, account.getSanId());
+			ps.setInt(4, account.getNumberOfSip());
+			ps.setString(5, account.getStatus());
+			
+			return ps.executeUpdate() == 1; 
+											
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+	
+	public static boolean deleteAccount(String accountNumber) {
+		ConnectionPool pool = ConnectionPool.getInstance();
+		Connection connection = pool.getConnection();
+		PreparedStatement ps = null;
+
+		try {
+			String deleteSegmentSQL = "DELETE FROM Subscriber_Account_Info "
+					+ "WHERE Account_Number = '" + accountNumber + "';";
+
+			ps = connection.prepareStatement(deleteSegmentSQL);
+
+			return (ps.executeUpdate() == 1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBUtil.closePreparedStatement(ps);
+			pool.freeConnection(connection);
+		}
+	}
+}

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/repo/!svn/ver/960/dssp/SubscriberModel/SubscriberPortal/src/main/java/data
+END
+AccountDB.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/repo/!svn/ver/960/dssp/SubscriberModel/SubscriberPortal/src/main/java/data/AccountDB.java
+END
+DBUtil.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/repo/!svn/ver/960/dssp/SubscriberModel/SubscriberPortal/src/main/java/data/DBUtil.java
+END
+ServiceActivityDB.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/repo/!svn/ver/960/dssp/SubscriberModel/SubscriberPortal/src/main/java/data/ServiceActivityDB.java
+END
+SanDB.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/repo/!svn/ver/960/dssp/SubscriberModel/SubscriberPortal/src/main/java/data/SanDB.java
+END
+ConnectionPool.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/repo/!svn/ver/960/dssp/SubscriberModel/SubscriberPortal/src/main/java/data/ConnectionPool.java
+END
+SubscriberDB.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/repo/!svn/ver/960/dssp/SubscriberModel/SubscriberPortal/src/main/java/data/SubscriberDB.java
+END
+ServiceStatusDB.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/repo/!svn/ver/960/dssp/SubscriberModel/SubscriberPortal/src/main/java/data/ServiceStatusDB.java
+END
+MarketSegmentDB.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/repo/!svn/ver/960/dssp/SubscriberModel/SubscriberPortal/src/main/java/data/MarketSegmentDB.java
+END
+LoginDB.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/repo/!svn/ver/960/dssp/SubscriberModel/SubscriberPortal/src/main/java/data/LoginDB.java
+END
