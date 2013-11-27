@@ -5,19 +5,19 @@ public class Request {
 	private String requestId;
 	private String studentId;
 	private String courseName;
-	private String offer;
+	private String credit;
 	private String category;
 	
 	public Request() {
 	}
 
 	public Request(String requestId, String studentId, String courseName,
-		   String offer, String category) {
+			String credit, String category) {
 		super();
 		this.requestId = requestId;
 		this.studentId = studentId;
-		this.offer = offer;
 		this.courseName = courseName;
+		this.credit = credit;
 		this.category = category;
 	}
 
@@ -45,12 +45,12 @@ public class Request {
 		this.courseName = courseName;
 	}
 
-	public String getOffer() {
-		return offer;
+	public String getCredit() {
+		return credit;
 	}
 
-	public void setOffer(String offer) {
-		this.offer = offer;
+	public void setCredit(String credit) {
+		this.credit = credit;
 	}
 
 	public String getCategory() {

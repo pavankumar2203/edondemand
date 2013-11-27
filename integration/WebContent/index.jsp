@@ -7,12 +7,9 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>ED-On-Demand - Login</title>
 	<script src="login.js" type="text/javascript"></script>
-	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 
-<body background="img/education.jpg" style="position:relative;left:350px">
-<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+<body>
 	<div class="mainContentWrapper wrapper">
 		<div id="mainContent" >
 			<div id="loginForm">
@@ -26,11 +23,19 @@
 							<td><input type="text" name="userId" id="userId" class="formBox" value="" /></td>
 						</tr>
 						<tr>
-							<td class="fldLabel">Password</td>
+							<td class="fldLabel">Password:</td>
 							<td><input type="password" name="pwd" id="pwd" class="formBox" value="" /></td>
 						</tr>
+						<tr>
+						<td class="fldLabel">Login As:</td>
+							<td><select name="loginas">
+								<option>Student</option>
+								<option>Professor</option>
+								</select>
+							</td>
+						</tr>
 					</table>			
-					<input class="btn  btn-primary" type="button" name="formBtnSubmit" value="Log In" onClick="testResults(this.form)" />
+					<input class="button" type="button" name="formBtnSubmit" value="Log In" onClick="testResults(this.form)" />
 					<p class="errorMsg">${message}</p> 
 				</form>				
 				<div class="linespace"></div>

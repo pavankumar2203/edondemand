@@ -45,8 +45,10 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
 		String userId = request.getParameter("userId");
 		String pwd = request.getParameter("pwd");
+		String loginas = request.getParameter("loginas");
 		String url = "";
 		String message = "";
 		Login login = null;
@@ -60,14 +62,17 @@ public class LoginServlet extends HttpServlet {
 				message = "Error: User name or Password is not correct!";
 				url = "/index.jsp";
 			} else {
-				Student student = StudentDB.getStudent(login.getStudentId());
-				
-				HttpSession session = request.getSession();
 				session.setAttribute("login", login);
-				session.setAttribute("student", student);
-
-				url = "/request.jsp";
-				
+				if(loginas.equalsIgnoreCase("Student")){
+					Student student = StudentDB.getStudent(login.getStudentId());
+					session.setAttribute("student", student);
+					url = "/student.jsp";
+				}
+				if(loginas.equalsIgnoreCase("Professor")){
+					//Professor professor = StudentDB.getStudent(login.getStudentId());
+					//session.setAttribute("student", student);
+					//url = "/request.jsp";
+				}
 			}
 		}
 		request.setAttribute("message", message);

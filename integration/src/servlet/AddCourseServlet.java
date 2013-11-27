@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import data.CourseDB;
-
+import data.RequestDB;
 import business.Course;
 import business.Request;
 import business.Student;
@@ -67,14 +67,17 @@ public class AddCourseServlet extends HttpServlet{
 			if (bool == true) {
 				requestCourse.setStudentId(student.getStudentId());
 				requestCourse.setCourseName(courseName);
-				requestCourse.setOffer(credits);
+				requestCourse.setCredit(credits);
 				requestCourse.setCategory(category);
 				
+				System.out.println(RequestDB.addRequest(requestCourse));
 				session.setAttribute("requestCourse", requestCourse);
 				message = "You have added a course successfully!";
+				url = "/request.jsp";
 			} else {
 				message = "Error: This course already exists! Please search to find it";
 			}
+			
 		}
 		request.setAttribute("message", message);
 		RequestDispatcher dispatcher = getServletContext()

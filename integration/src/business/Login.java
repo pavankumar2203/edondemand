@@ -2,39 +2,53 @@ package business;
 
 public class Login {
 
-	private String studentId;
+	private String loginId;
 	private String userId;
 	private String pwd;
-
-	public Login() {
-	}
-	public Login(String studentId, String userId, String pwd) {
-		this.studentId = studentId;
-		this.userId = userId;
-		this.pwd = pwd;
+	private String studentId;
+	private String profId;
+	
+	public Login(){
 	}
 	
-	public String getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(String studentId) {
+	public Login(String loginId, String userId, String pwd, String studentId,
+			String profId) {
+		super();
+		this.loginId = loginId;
+		this.userId = userId;
+		this.pwd = pwd;
 		this.studentId = studentId;
+		this.profId = profId;
 	}
-
+	
+	public String getLoginId() {
+		return loginId;
+	}
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
 	public String getUserId() {
 		return userId;
 	}
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
 	public String getPwd() {
 		return pwd;
 	}
-
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+	public String getStudentId() {
+		return studentId;
+	}
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+	public String getProfId() {
+		return profId;
+	}
+	public void setProfId(String profId) {
+		this.profId = profId;
 	}
 }

@@ -14,7 +14,7 @@ public class ConnectionPool {
 	private ConnectionPool() {
 		try {
 			InitialContext ic = new InitialContext();
-			dataSource = (DataSource) ic.lookup("java:/comp/env/jdbc/edondem");
+			dataSource = (DataSource) ic.lookup("java:/comp/env/jdbc/telecom");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

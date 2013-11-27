@@ -5,19 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Student Request</title>
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
-<body background="img/education.jpg" style="position:relative;left:350px">
-<script src="http://code.jquery.com/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+<body>
 <div class="mainContentWrapper wrapper">
 		<div id="mainContent" >
 			<div id="loginForm">
 				<h3>Add or Search a Course</h3>			
 				<div class="linespace"></div>
 				<form action="searchServlet" method="POST" name="addform">
-					<input type="text" name="searchReqeust" id="searchRequest" class="formBox" value="" />
-					<input class="btn" type="button" name="formBtnSubmit" value="Search Course" onClick="testResults(this.form)" />
+					<input type="text" name="searchReqeust" id="searchRequest" class="formBox" />
+					<input class="button" type="submit" name="formBtnSubmit" value="Search Course" />
 				</form>	
 				
 				<div class="linespace"></div>
@@ -37,11 +34,12 @@
 						</tr>
 						<tr>
 							<td class="fldLabel">Category:</td>
-							<td><input type="text" name="category" id="category" class="formBox" value="" /></td>
+							<td><input type="text" name="category" id="category" class="formBox"  /></td>
 						</tr>
 					</table>			
-					<input class="btn" type="button" name="formBtnSubmit" value="Add Course" onClick="testResults(this.form)" />
+					<input class="button" type="submit" name="formBtnSubmit" value="Add Course"  />
 				</form>	
+				<p class="errorMsg">${message}</p> 
 			</div>
 			<div id="mainContentRight" class="fl-rigth"></div>
 			<div class="clear"></div>				

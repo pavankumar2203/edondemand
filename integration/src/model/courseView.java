@@ -42,7 +42,7 @@ public class courseView {
 				// Retrieve by column name
 				int rid = rs.getInt("REQUEST_ID");
 				// int stdid = rs.getInt("STUDENT_ID");
-				int offer = rs.getInt("OFFER");
+				int offer = rs.getInt("CREDIT");
 				String cour = rs.getString("COURSE_NAME");
 				String category = rs.getString("CATEGORY");
 

@@ -45,6 +45,8 @@ public class SearchServlet extends HttpServlet {
 		String searchReqeust = request.getParameter("searchReqeust");
 		String url = "";
 		String message = "";
+		
+		System.out.println(searchReqeust);
 
 		if (searchReqeust.length() == 0) {
 			message = "Error: Please Enter the Course Name!";
