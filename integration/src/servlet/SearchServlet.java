@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import data.CourseDB;
 
-import business.Course;
+import business.Course1;
 
 /**
  * Servlet implementation class SearchServlet
@@ -52,7 +52,7 @@ public class SearchServlet extends HttpServlet {
 			message = "Error: Please Enter the Course Name!";
 			url = "/request.jsp";
 		} else {
-			ArrayList<Course> courseList = CourseDB.searchCourse(searchReqeust);
+			ArrayList<Course1> courseList = CourseDB.searchCourse(searchReqeust);
 			if (courseList.size() == 0) {
 				message = "Revelant Course does not exist!";
 				url = "/request.jsp";

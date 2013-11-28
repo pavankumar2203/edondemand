@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import business.Course;
+import business.Course1;
 
 public class CourseDB {
 	private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
@@ -17,13 +17,13 @@ public class CourseDB {
 	private static String password = "root";
 	private static Connection connection = null;
 	
-	public static ArrayList<Course> searchCourse(String courseName) {
+	public static ArrayList<Course1> searchCourse(String courseName) {
 		
 		//ConnectionPool pool = ConnectionPool.getInstance();
 		//Connection connection = pool.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ArrayList<Course> courses = new ArrayList<Course>();
+		ArrayList<Course1> courses = new ArrayList<Course1>();
 
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -38,7 +38,7 @@ public class CourseDB {
 			rs = ps.executeQuery(courseSQL);
 
 			while (rs.next()) {
-				Course course = new Course();
+				Course1 course = new Course1();
 				course.setCourseId(rs.getString("COURSE_ID"));
 				course.setCourseName(rs.getString("COURSE_NAME"));
 				course.setComments(rs.getString("COMMENTS"));
@@ -64,12 +64,12 @@ public class CourseDB {
 		return courses;
 	}
 	
-	public static ArrayList<Course> getCourseList() {
+	public static ArrayList<Course1> getCourseList() {
 		//ConnectionPool pool = ConnectionPool.getInstance();
 		//Connection connection = pool.getConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ArrayList<Course> courses = new ArrayList<Course>();
+		ArrayList<Course1> courses = new ArrayList<Course1>();
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -82,7 +82,7 @@ public class CourseDB {
 			rs = ps.executeQuery(courseSQL);
 
 			while (rs.next()) {
-				Course course = new Course();
+				Course1 course = new Course1();
 				course.setCourseId(rs.getString("COURSE_ID"));
 				course.setCourseName(rs.getString("COURSE_NAME"));
 				course.setComments(rs.getString("COMMENTS"));

@@ -92,6 +92,19 @@
     <url-pattern>/FacultyDetails</url-pattern>
   </servlet-mapping>
   
+
+
+
+<servlet>
+    <description></description>
+    <display-name>AddReadCourse</display-name>
+    <servlet-name>AddReadCourse</servlet-name>
+    <servlet-class>controllers.AddReadCourse</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddReadCourse</servlet-name>
+    <url-pattern>/AddReadCourse</url-pattern>
+  </servlet-mapping>
   
   
   <context-param> 

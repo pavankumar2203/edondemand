@@ -1,16 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
+<title>Search Result</title>
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/home.css" rel="stylesheet" media="screen">
-<link href='css/calendar.css' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
 	<script src="http://code.jquery.com/jquery.js"></script>
@@ -105,8 +103,8 @@
 												<!-- Your Courses-->
 												<div class="edondem-dashboard-section-header">
 													<span
-														class="edondem-front-section-courselist-header edondem-dashboard-section-header-title">The
-														following is the course details: </span>
+														class="edondem-front-section-courselist-header edondem-dashboard-section-header-title">Search
+														Result:</span>
 												</div>
 												<div class="edondem-dashboard-enrollments-list">
 
@@ -114,91 +112,28 @@
 
 
 													<div class="container">
-														<table id="tableSelect" class="table "
-															style="display: grid;">
-															<tr class="success">
-																<td>CourseID</td>
-																<td>${requestScope['coursedetails'].requestid}</td>
+														<table border="0" cellspacing="15" width="80%"
+															id="dataTable">
+															<tr>
+																<td class="fldLabel">Course Id:</td>
+																<td>${requestScope['courseList'].courseId}</td>
 															</tr>
-															<tr class="success">
-																<td>CourseTitle</td>
-																<td>${requestScope['coursedetails'].course}</td>
+															<tr>
+																<td class="fldLabel">Course Name:</td>
+																<td>${requestScope['courseList'].courseName}</td>
 															</tr>
-															<tr class="info">
-																<td>CourseCategory</td>
-																<td>${requestScope['coursedetails'].category}</td>
+															<tr>
+																<td class="fldLabel">Course Comments:</td>
+																<td>${requestScope['courseList'].comments}</td>
 															</tr>
-															<tr class="info">
-																<td>Number of Credits</td>
-																<td>${requestScope['coursedetails'].offer}</td>
-															</tr>
-
 														</table>
-
-														<form action="UploadServlet" method="post"
-															enctype="multipart/form-data">
-															
-															<div class="control-group">
-															<input class="btn" type="file" name="file" style="height: 40px;"/>
-																<label class="control-label" for="Video">Upload
-																	Demo Video</label>
-																<div class="controls">
-																	<input class="btn btn-primary" type="submit"
-																		name="Video" value="Upload File" style="height: 40px;">
-																</div>
-															</div>
-
-
+														<form action="addCourseServlet" method="post">
+															<p>If you want to take this course, please enter the
+																credits here:</p>
+															<input type="text" name="courseCredits"
+																id="courseCredits" class="formBox" value="" /> <input
+																type="submit" value="enter credits" class="btn">
 														</form>
-
-														<p>${requestScope['fileupload']}</p>
-														<form class="form-horizontal" action="sendEmail"
-															method="post">
-
-
-															<div class="control-group">
-																<label class="control-label" for="Time">Time</label>
-																<div class="controls">
-																	<input type="text" name="Time" placeholder="Type time">
-																</div>
-															</div>
-															<div class="control-group">
-																<label class="control-label" for="data">Date</label>
-																<div class="controls">
-
-
-																	<input type='text' id='sel' name='Date'
-																		onclick='dispCal()' size=10 readonly='readonly'
-																		style='cursor: pointer;' /> <img
-																		src='img/calendar.png' onclick='dispCal()'
-																		style='cursor: pointer; vertical-align: middle;' />
-																	<table class='calendar' id='calendar' border=0
-																		cellpadding=0 cellspacing=0>
-																		<tr class='monthdisp'>
-																			<td class='navigate' align='left'><img
-																				src='img/previous.png' onclick='return prev()' /></td>
-																			<td align='center' id='month'></td>
-																			<td class='navigate' align='right'><img
-																				src='img/next.png' onclick='return next()' /></td>
-																		</tr>
-																		<tr>
-																			<td colspan=3>
-																				<table id='dispDays' border=0 cellpadding=4
-																					cellspacing=4>
-																				</table>
-																			</td>
-																		</tr>
-																	</table>
-
-
-
-																</div>
-															</div>
-
-															<input class="btn btn-primary" type="submit" name="s"
-																value="SendEmail" style="height: 40px;" />
-														</form>
-
 													</div>
 
 												</div>
