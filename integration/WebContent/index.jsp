@@ -22,7 +22,7 @@
 						<div class="container">
 							<div class="row">
 								<div class="edondem-header-primary">
-									<a href="https://Ed-on-Demand/"
+									<a href="/Ed-On-Demand/entry.jsp"
 										class="internal-home edondem-logo"></a>
 								</div>
 								<div style="float: left;" class="edondem-header-secondary">

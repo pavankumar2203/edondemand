@@ -1346,7 +1346,7 @@ select,input[type="text"],input[type="password"],input[type="datetime"],input[ty
 .edondem-footer .edondem-footer-content-secondary{float:right;margin-right:-12px}
 .container{width:1000px;padding:0 30px}
 .edondem-header .edondem-header-primary{float:left;position:relative;left:20px;}
-.edondem-header .edondem-header-primary .edondem-logo{text-decoration:none;background:url("https://d2wvvaown1ul17.cloudfront.net/site-static/pages/home/template/edondem_logo_small.png");background-repeat:no-repeat;width:108px;height:17px;display:inline-block;margin-top:11px}
+.edondem-header .edondem-header-primary .edondem-logo{text-decoration:none;background:url("logo.PNG");background-repeat:no-repeat;width:120px;height:17px;display:inline-block;margin-top:11px}
 .edondem-header .edondem-header-secondary{text-align:right;}
 .edondem-header .edondem-header-secondary a.edondem-header-link,.edondem-header .edondem-header-secondary a.edondem-header-link.internal-home,.edondem-header .edondem-header-secondary span.edondem-header-university-label{color:#717171;text-decoration:none;padding:8px 10px 8px 10px;font-family:"sofiapro",Arial,sans-serif;font-size:14px;letter-spacing:1px;display:inline-block;border:solid transparent 1px;border-bottom:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .edondem-header .edondem-header-secondary a.edondem-header-link:last-of-type{padding-right:0}

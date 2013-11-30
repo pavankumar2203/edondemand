@@ -49,19 +49,7 @@
 												<li><a href="#about">About</a></li>
 												<li><a href="#contact">Contact</a></li>
 												<!-- Read about Bootstrap dropdowns at http://twbs.github.com/bootstrap/javascript.html#dropdowns -->
-												<li class="dropdown"><a href="#"
-													class="dropdown-toggle" data-toggle="dropdown">Dropdown
-														<b class="caret"></b>
-												</a>
-													<ul class="dropdown-menu">
-														<li><a href="#">Action</a></li>
-														<li><a href="#">Another action</a></li>
-														<li><a href="#">Something else here</a></li>
-														<li class="divider"></li>
-														<li class="nav-header">Nav header</li>
-														<li><a href="#">Separated link</a></li>
-														<li><a href="#">One more separated link</a></li>
-													</ul></li>
+												<li><a href="/Ed-On-Demand/entry.jsp">Sign Out</a></li>
 											</ul>
 										</div>
 										<!--/.nav-collapse -->
@@ -89,12 +77,12 @@
 					<div role="article" class="edondem-body">
 
 
-						<strong> Welcome ${requestScope['user'].username}. </strong>
+
 
 
 						<div class="container">
 							<div style="overflow: hidden" class="edondem-full-canvas">
-
+								<strong> Welcome ${requestScope['user'].username}. </strong>
 
 								<div class="row">
 									<div class="span8 edondem-front-main-section">

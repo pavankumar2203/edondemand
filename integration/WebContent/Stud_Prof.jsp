@@ -38,27 +38,14 @@
 											<span class="icon-bar"></span> <span class="icon-bar"></span>
 											<span class="icon-bar"></span>
 										</button>
-										<a class="brand" href="/Ed-On-Demand/FacultyDetails">${requestScope['user'].username}</a>
+										<a href="/Ed-On-Demand/FacultyDetails">${requestScope['user'].username}</a>
 										<!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
 										<div class="nav-collapse collapse">
 											<ul class="nav">
 												<li class="active"><a href="#">Home</a></li>
-												<li><a href="#about">About</a></li>
-												<li><a href="#contact">Contact</a></li>
+
 												<!-- Read about Bootstrap dropdowns at http://twbs.github.com/bootstrap/javascript.html#dropdowns -->
-												<li class="dropdown"><a href="#"
-													class="dropdown-toggle" data-toggle="dropdown">Dropdown
-														<b class="caret"></b>
-												</a>
-													<ul class="dropdown-menu">
-														<li><a href="#">Action</a></li>
-														<li><a href="#">Another action</a></li>
-														<li><a href="#">Something else here</a></li>
-														<li class="divider"></li>
-														<li class="nav-header">Nav header</li>
-														<li><a href="#">Separated link</a></li>
-														<li><a href="#">One more separated link</a></li>
-													</ul></li>
+												<li><a href="/Ed-On-Demand/entry.jsp">Sign Out</a></li>
 											</ul>
 										</div>
 										<!--/.nav-collapse -->
@@ -86,13 +73,13 @@
 					<div role="article" class="edondem-body">
 
 
-						<strong> Welcome ${requestScope['user'].username}. </strong>
+
 
 
 						<div class="container">
 							<div style="overflow: hidden" class="edondem-full-canvas">
 
-
+								<strong> Welcome ${requestScope['user'].username}. </strong>
 								<div class="row">
 									<div class="span8 edondem-front-main-section">
 										<div class="row-fluid">
@@ -112,8 +99,8 @@
 														<form action="FacultyDetails" method="POST">
 
 															Name: <input type="text" name="name"
-																value="<%=request.getAttribute("profName")%>">
-															<br /> Skills: <input type="text" name="skills"
+																value="<%=request.getAttribute("profName")%>"> <br />
+															Skills: <input type="text" name="skills"
 																value="<%=request.getAttribute("Skill")%>"> <br />
 															Email: <input type="text" name="email"
 																value="<%=request.getAttribute("Email")%>"> <br />

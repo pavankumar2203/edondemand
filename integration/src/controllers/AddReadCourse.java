@@ -85,7 +85,7 @@ public class AddReadCourse extends HttpServlet {
             System.out.println("Ran the operation");
             
             request.setAttribute("readResult", result);
-            RequestDispatcher view = request.getRequestDispatcher("FacultyCourse.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("success.jsp");
             view.forward(request, response);
             con.close();
         } 
