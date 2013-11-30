@@ -10,7 +10,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/home.css" rel="stylesheet" media="screen">
 </head>
-<body background="img/education.jpg">
+<body style="background-image:url('img/education.jpg')">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
@@ -121,12 +121,21 @@
 					<div class="container">
 						<div class="row-fluid">
 							<div class="edondem-footer-content-primary">
-								<a href="#" class="edondem-footer-link">About</a><a href="#"
+								<a href="http://williamwuyz.wix.com/edondemand" class="edondem-footer-link">About</a><a href="#"
 									class="edondem-footer-link">Contact</a>
 							</div>
-							<!-- <div class="edondem-footer-content-secondary"><a target="_blank" href="#" title="Follow edondem on Google Plus" class="edondem-footer-link">Google+</a><a target="_blank" href="#" class="edondem-footer-link">Twitter</a><a target="_blank" href="#" class="edondem-footer-link">Facebook</a><a target="_blank" href="#"
-                            title="Read the edondem blog" class="edondem-footer-link">Blog</a> 
-                        </div> -->
+							
+							<div class="edondem-footer-content-secondary">
+								<a target="_blank" href="https://plus.google.com/"
+									title="Follow edondem on Google Plus"
+									class="edondem-footer-link">Google+</a><a target="_blank"
+									href="https://twitter.com/" title="Follow edondem on Twitter"
+									class="edondem-footer-link">Twitter</a><a target="_blank"
+									href="http://www.facebook.com/" title="Follow edondem on Facebook"
+									class="edondem-footer-link">Facebook</a><a target="_blank"
+									href="http://googleblog.blogspot.com/" title="Read the edondem blog"
+									class="edondem-footer-link">Blog</a>
+							</div>
 						</div>
 					</div>
 				</div>

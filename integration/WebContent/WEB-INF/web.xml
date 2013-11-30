@@ -92,6 +92,17 @@
     <url-pattern>/FacultyDetails</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <description></description>
+    <display-name>StudProfile</display-name>
+    <servlet-name>StudProfile</servlet-name>
+    <servlet-class>controllers.StudProfile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StudProfile</servlet-name>
+    <url-pattern>/StudProfile</url-pattern>
+  </servlet-mapping>
+  
 
 
 

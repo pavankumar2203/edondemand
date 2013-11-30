@@ -12,7 +12,7 @@
 <link href="css/home.css" rel="stylesheet" media="screen">
 <link href='css/calendar.css' rel='stylesheet' type='text/css'>
 </head>
-<body>
+<body style="background-image: url('img/education.jpg')">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script type='text/javascript' src='js/Datedropdown.js'></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -29,30 +29,27 @@
 					<div role="menubar" class="edondem-header">
 						<div class="container">
 							<div class="">
-								<div class="edondem-header-primary">
-									<a href="/" class="internal-home edondem-logo"></a>
-								</div>
+
 
 
 
 								<div class="navbar navbar-inverse">
 									<div class="navbar-inner">
 										<!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
-										<button type="button" class="btn btn-navbar"
-											data-toggle="collapse" data-target=".nav-collapse">
-											<span class="icon-bar"></span> <span class="icon-bar"></span>
-											<span class="icon-bar"></span>
-										</button>
-										<a href="/Ed-On-Demand/FacultyDetails">${requestScope['user'].username}</a>
+										<!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
 										<!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
 										<div class="nav-collapse collapse">
 											<ul class="nav">
-												<li class="active"><a href="#">Home</a></li>
-												<li><a href="#about">About</a></li>
-												<li><a href="#contact">Contact</a></li>
+												<li><a href="/Ed-On-Demand/FacultyDetails">Edit
+														Profile</a></li>
+												<li><a href="#">Home</a></li>
+
+												<li><a href="/Ed-On-Demand/FacultyCourse.jsp">Add
+														Course</a></li>
+
 												<li><a href="/Ed-On-Demand/entry.jsp">Sign Out</a></li>
 												<!-- Read about Bootstrap dropdowns at http://twbs.github.com/bootstrap/javascript.html#dropdowns -->
-												<li><a href="/Ed-On-Demand/entry.jsp">Sign Out</a></li>
+
 											</ul>
 										</div>
 										<!--/.nav-collapse -->
@@ -63,17 +60,7 @@
 
 							</div>
 						</div>
-						<div id="edondem-header-about-popup"
-							class="hide edondem-header-popup">
-							<a data-popup-close="data-popup-close" href="/about/jobs"
-								class="internal-home">Careers</a><a
-								data-popup-close="data-popup-close" href="/about/team"
-								class="internal-home">Team</a><a
-								data-popup-close="data-popup-close" href="/about/contact"
-								class="internal-home">Contact</a><a
-								data-popup-close="data-popup-close" href="/about/"
-								class="internal-home">About Us</a>
-						</div>
+
 
 					</div>
 					<div role="navigation" class="edondem-banner"></div>
@@ -92,10 +79,17 @@
 										<div class="row-fluid">
 											<div class="span8">
 												<!-- Your Courses-->
-												<div class="edondem-dashboard-section-header">
-													<span
-														class="edondem-front-section-courselist-header edondem-dashboard-section-header-title">The
-														following is the course details: </span>
+												<div class="row-fluid">
+													<div class="span12">
+														<div style="margin-bottom: 10px;" class="heading-banner">
+
+															<h1>
+																The following is the course details <small
+																	id="edondem-profile-editor-status"
+																	style="font-size: 12px; line-height: 12px;"></small>
+															</h1>
+														</div>
+													</div>
 												</div>
 												<div class="edondem-dashboard-enrollments-list">
 
@@ -109,11 +103,11 @@
 																<td>CourseID</td>
 																<td>${requestScope['coursedetails'].requestid}</td>
 															</tr>
-															<tr class="success">
+															<tr class="info">
 																<td>CourseTitle</td>
 																<td>${requestScope['coursedetails'].course}</td>
 															</tr>
-															<tr class="info">
+															<tr class="success">
 																<td>CourseCategory</td>
 																<td>${requestScope['coursedetails'].category}</td>
 															</tr>
@@ -125,16 +119,15 @@
 														</table>
 
 														<form action="UploadServlet" method="post"
-															enctype="multipart/form-data">
+															enctype="multipart/form-data" class="form-horizontal">
 
 															<div class="control-group">
 																<input class="btn" type="file" name="file"
-																	style="height: 40px;" /> <label class="control-label"
-																	for="Video">Upload Demo Video</label>
-																<div class="controls">
-																	<input class="btn btn-primary" type="submit"
-																		name="Video" value="Upload File" style="height: 40px;">
-																</div>
+																	 /> <label class="control-label"
+																	for="Video">Upload Demo Video : </label> <input
+																	class="btn" type="submit" name="Video" value="Upload"
+																	style="height: 40px;">
+
 															</div>
 
 
@@ -144,6 +137,12 @@
 														<form class="form-horizontal" action="sendEmail"
 															method="post">
 
+															<div class="control-group">
+																<label class="control-label" for="NoH">Number of Hours</label>
+																<div class="controls">
+																	<input type="text" name="NoH" placeholder="# of hours">
+																</div>
+															</div>
 
 															<div class="control-group">
 																<label class="control-label" for="Time">Time</label>
@@ -208,20 +207,22 @@
 					<div class="container">
 						<div class="row-fluid">
 							<div class="edondem-footer-content-primary">
-								<a href="/about" class="internal-home edondem-footer-link">About</a><a
+								<a href="http://williamwuyz.wix.com/edondemand"
+									class="internal-home edondem-footer-link">About</a><a
 									href="/about/contact" class="internal-home edondem-footer-link">Contact</a>
 
 							</div>
+
 							<div class="edondem-footer-content-secondary">
-								<a target="_blank" href="#"
+								<a target="_blank" href="https://plus.google.com/"
 									title="Follow edondem on Google Plus"
 									class="edondem-footer-link">Google+</a><a target="_blank"
-									href="#" title="Follow edondem on Twitter"
+									href="https://twitter.com/" title="Follow edondem on Twitter"
 									class="edondem-footer-link">Twitter</a><a target="_blank"
-									href="#" title="Follow edondem on Facebook"
-									class="edondem-footer-link">Facebook</a><a target="_blank"
-									href="#" title="Read the edondem blog"
-									class="edondem-footer-link">Blog</a>
+									href="http://www.facebook.com/"
+									title="Follow edondem on Facebook" class="edondem-footer-link">Facebook</a><a
+									target="_blank" href="http://googleblog.blogspot.com/"
+									title="Read the edondem blog" class="edondem-footer-link">Blog</a>
 							</div>
 						</div>
 					</div>

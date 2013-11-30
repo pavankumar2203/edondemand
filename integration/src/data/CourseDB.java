@@ -28,7 +28,7 @@ public class CourseDB {
 		try {
 			Class.forName(JDBC_DRIVER);
 			// STEP 3: Open a connection
-			System.out.println("Connecting to database...");
+			System.out.println("Connecting to database..." + courseName);
 			connection = (Connection) DriverManager.getConnection(DB_URL, username, password);
 			String courseSQL = "SELECT * "
 					+ "FROM COURSES "
@@ -37,13 +37,18 @@ public class CourseDB {
 			ps = connection.prepareStatement(courseSQL);
 			rs = ps.executeQuery(courseSQL);
 
-			while (rs.next()) {
+			boolean re = rs.next();
+			if (re) {
+				
+				
 				Course1 course = new Course1();
 				course.setCourseId(rs.getString("COURSE_ID"));
 				course.setCourseName(rs.getString("COURSE_NAME"));
 				course.setComments(rs.getString("COMMENTS"));
 				course.setProfId(rs.getString("PROF_ID"));
 				courses.add(course);
+				
+				System.out.println(course.getCourseId());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

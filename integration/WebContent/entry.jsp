@@ -62,20 +62,22 @@
 				<div class="container">
 					<div class="row-fluid">
 						<div class="edondem-footer-content-primary">
-							<a href="/about" class="internal-home edondem-footer-link">About</a><a
+							<a href="http://williamwuyz.wix.com/edondemand" class="internal-home edondem-footer-link">About</a><a
 								href="/about/contact" class="internal-home edondem-footer-link">Contact</a>
 
 						</div>
-						<div class="edondem-footer-content-secondary">
-							<a target="_blank" href="#" title="Follow edondem on Google Plus"
-								class="edondem-footer-link">Google+</a><a target="_blank"
-								href="#" title="Follow edondem on Twitter"
-								class="edondem-footer-link">Twitter</a><a target="_blank"
-								href="#" title="Follow edondem on Facebook"
-								class="edondem-footer-link">Facebook</a><a target="_blank"
-								href="#" title="Read the edondem blog"
-								class="edondem-footer-link">Blog</a>
-						</div>
+						
+							<div class="edondem-footer-content-secondary">
+								<a target="_blank" href="https://plus.google.com/"
+									title="Follow edondem on Google Plus"
+									class="edondem-footer-link">Google+</a><a target="_blank"
+									href="https://twitter.com/" title="Follow edondem on Twitter"
+									class="edondem-footer-link">Twitter</a><a target="_blank"
+									href="http://www.facebook.com/" title="Follow edondem on Facebook"
+									class="edondem-footer-link">Facebook</a><a target="_blank"
+									href="http://googleblog.blogspot.com/" title="Read the edondem blog"
+									class="edondem-footer-link">Blog</a>
+							</div>
 					</div>
 				</div>
 			</div>

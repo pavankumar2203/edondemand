@@ -12,7 +12,7 @@
 <link href="css/home.css" rel="stylesheet" media="screen">
 </head>
 
-<body>
+<body style="background-image:url('img/education.jpg')">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script>
@@ -28,17 +28,10 @@
 					<div role="menubar" class="edondem-header">
 						<div class="container">
 							<div class="">
-								<div class="edondem-header-primary">
-									<a href="/Ed-On-Demand/entry.jsp" class="internal-home edondem-logo"></a>
-								</div>
+								
 								<div class="navbar navbar-inverse">
 									<div class="navbar-inner">
-										<!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
-										<button type="button" class="btn btn-navbar"
-											data-toggle="collapse" data-target=".nav-collapse">
-											<span class="icon-bar"></span> <span class="icon-bar"></span>
-											<span class="icon-bar"></span>
-										</button>
+										
 										
 										<!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
 										<div class="nav-collapse collapse">
@@ -62,17 +55,7 @@
 
 							</div>
 						</div>
-						<div id="edondem-header-about-popup"
-							class="hide edondem-header-popup">
-							<a data-popup-close="data-popup-close" href="/about/jobs"
-								class="internal-home">Careers</a><a
-								data-popup-close="data-popup-close" href="/about/team"
-								class="internal-home">Team</a><a
-								data-popup-close="data-popup-close" href="/about/contact"
-								class="internal-home">Contact</a><a
-								data-popup-close="data-popup-close" href="/about/"
-								class="internal-home">About Us</a>
-						</div>
+				
 
 					</div>
 					<div role="navigation" class="edondem-banner"></div>
@@ -119,7 +102,6 @@
 																<c:forEach items="${course}" var="element">
 																	<tr>
 																		<td>${element.requestid}</td>
-
 																		<td>${element.offer}</td>
 																		<td>${element.course}</td>
 																		<td>${element.category}</td>
@@ -157,19 +139,20 @@
 					<div class="container">
 						<div class="row-fluid">
 							<div class="edondem-footer-content-primary">
-								<a href="/about" class="internal-home edondem-footer-link">About</a><a
+								<a href="http://williamwuyz.wix.com/edondemand" class="internal-home edondem-footer-link">About</a><a
 									href="/about/contact" class="internal-home edondem-footer-link">Contact</a>
 
 							</div>
+						
 							<div class="edondem-footer-content-secondary">
-								<a target="_blank" href="#"
+								<a target="_blank" href="https://plus.google.com/"
 									title="Follow edondem on Google Plus"
 									class="edondem-footer-link">Google+</a><a target="_blank"
-									href="#" title="Follow edondem on Twitter"
+									href="https://twitter.com/" title="Follow edondem on Twitter"
 									class="edondem-footer-link">Twitter</a><a target="_blank"
-									href="#" title="Follow edondem on Facebook"
+									href="http://www.facebook.com/" title="Follow edondem on Facebook"
 									class="edondem-footer-link">Facebook</a><a target="_blank"
-									href="#" title="Read the edondem blog"
+									href="http://googleblog.blogspot.com/" title="Read the edondem blog"
 									class="edondem-footer-link">Blog</a>
 							</div>
 						</div>

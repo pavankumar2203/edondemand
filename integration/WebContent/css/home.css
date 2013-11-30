@@ -15,7 +15,7 @@ button,html input[type="button"],input[type="reset"],input[type="submit"]{-webki
 input[type="search"]{-webkit-box-sizing:content-box;-moz-box-sizing:content-box;box-sizing:content-box;-webkit-appearance:textfield}
 input[type="search"]::-webkit-search-decoration,input[type="search"]::-webkit-search-cancel-button{-webkit-appearance:none}
 textarea{overflow:auto;vertical-align:top}
-body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:21px;color:#333;background-color:#fff}
+body{margin:0;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:21px;color:#333;}
 a{color:#0011ee;text-decoration:none}
 a:hover{color:#51739d;text-decoration:underline}
 .img-rounded{-webkit-border-radius:6px;-moz-border-radius:6px;-ms-border-radius:6px;-o-border-radius:6px;border-radius:6px}
@@ -1321,7 +1321,7 @@ div[data-readme]{display:none}
 html,body{margin:0;padding:0;height:100%;background:#fff}
 body{overflow-y:scroll}
 a{text-decoration:none}
-#origami{min-height:100%;position:relative;background:#f9faf7}
+#origami{min-height:100%;position:relative}
 @media print{html,body{height:auto}
 }*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}
 .input-prepend .add-on,.input-append .add-on{height:28px}
@@ -1356,7 +1356,7 @@ select,input[type="text"],input[type="password"],input[type="datetime"],input[ty
 .edondem-edit-page{color:#ccc;position:relative;text-align:right;top:-6px;}
 .edondem-edit-page .edondem-edit-page-button{display:none;position:absolute;z-index:3;top:-10px;right:0;float:right}
 .edondem-visibility-warning{background:#f37321;color:#fff;padding:10px;text-align:center;font-weight:bold}
-.edondem-body{position:relative;background-color:#f9faf7;height:100%}
+.edondem-body{position:relative;height:100%}
 .edondem-banner-bg{width:100%;background-color:#000;height:320px;position:relative;}
 .edondem-banner-bg .edondem-hero-banner{width:1280px;height:100%;max-height:320px;position:relative;-webkit-box-shadow:inset 50px 0 120px -20px #000,inset 50px 0 120px -40px #000,inset -50px 0 120px -20px #000,inset -50px 0 120px -40px #000,inset 0 10px 10px -10px #000,inset 0 -10px 10px -10px #000;box-shadow:inset 50px 0 120px -20px #000,inset 50px 0 120px -40px #000,inset -50px 0 120px -20px #000,inset -50px 0 120px -40px #000,inset 0 10px 10px -10px #000,inset 0 -10px 10px -10px #000;margin:0 auto}
 .edondem-footer-social{width:32px;height:32px;float:right;margin-right:6px;opacity:.5;-ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=50);filter:alpha(opacity=50);}

@@ -53,6 +53,8 @@ public class SearchServlet extends HttpServlet {
 			url = "/request.jsp";
 		} else {
 			ArrayList<Course1> courseList = CourseDB.searchCourse(searchReqeust);
+			
+			System.out.println(courseList.size());
 			if (courseList.size() == 0) {
 				message = "Revelant Course does not exist!";
 				url = "/request.jsp";

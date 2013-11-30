@@ -27,8 +27,8 @@ public class RequestDB {
 		
 		PreparedStatement ps = null;
 		boolean returnvalue = false;
-		String requestSQL = "INSERT INTO REQUEST "
-				+ "VALUES (\"REQUEST_ID\", ?, ?, ?, ?)";
+		String requestSQL = "INSERT INTO request "
+				+ "VALUES (REQUEST_ID, ?, ?, ?, ?)";
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

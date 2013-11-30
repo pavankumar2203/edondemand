@@ -7,7 +7,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/home.css" rel="stylesheet" media="screen">
 </head>
-<body>
+<body style="background-image: url('img/education.jpg')">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script type='text/javascript' src='js/Datedropdown.js'></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -24,30 +24,32 @@
 					<div role="menubar" class="edondem-header">
 						<div class="container">
 							<div class="">
-								<div class="edondem-header-primary">
-									<a href="/" class="internal-home edondem-logo"></a>
-								</div>
+
 
 
 
 								<div class="navbar navbar-inverse">
 									<div class="navbar-inner">
 										<!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
-										<button type="button" class="btn btn-navbar"
-											data-toggle="collapse" data-target=".nav-collapse">
-											<span class="icon-bar"></span> <span class="icon-bar"></span>
-											<span class="icon-bar"></span>
-										</button>
-										<a href="/Ed-On-Demand/FacultyDetails">${requestScope['user'].username}</a>
+
+										<!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
 										<!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
 										<div class="nav-collapse collapse">
 											<ul class="nav">
-												<li class="active"><a href="#">Home</a></li>
 
-												<!-- Read about Bootstrap dropdowns at http://twbs.github.com/bootstrap/javascript.html#dropdowns -->
+												<li class="active"><a
+													href="/Ed-On-Demand/FacultyDetails">Edit Profile</a></li>
+												<li><a href="#">Home</a></li>
+
+												<li><a href="/Ed-On-Demand/FacultyCourse.jsp">Add
+														Course</a></li>
+
 												<li><a href="/Ed-On-Demand/entry.jsp">Sign Out</a></li>
+												<!-- Read about Bootstrap dropdowns at http://twbs.github.com/bootstrap/javascript.html#dropdowns -->
+
 											</ul>
 										</div>
+
 										<!--/.nav-collapse -->
 									</div>
 									<!-- /.navbar-inner -->
@@ -56,17 +58,7 @@
 
 							</div>
 						</div>
-						<div id="edondem-header-about-popup"
-							class="hide edondem-header-popup">
-							<a data-popup-close="data-popup-close" href="/about/jobs"
-								class="internal-home">Careers</a><a
-								data-popup-close="data-popup-close" href="/about/team"
-								class="internal-home">Team</a><a
-								data-popup-close="data-popup-close" href="/about/contact"
-								class="internal-home">Contact</a><a
-								data-popup-close="data-popup-close" href="/about/"
-								class="internal-home">About Us</a>
-						</div>
+
 
 					</div>
 					<div role="navigation" class="edondem-banner"></div>
@@ -85,10 +77,17 @@
 										<div class="row-fluid">
 											<div class="span8">
 												<!-- Your Courses-->
-												<div class="edondem-dashboard-section-header">
-													<span
-														class="edondem-front-section-courselist-header edondem-dashboard-section-header-title">View/Edit
-														Profile:</span>
+												<div class="row-fluid">
+													<div class="span12">
+														<div style="margin-bottom: 10px;" class="heading-banner">
+
+															<h1>
+																View/Edit Profile<small
+																	id="edondem-profile-editor-status"
+																	style="font-size: 12px; line-height: 12px;"></small>
+															</h1>
+														</div>
+													</div>
 												</div>
 												<div class="edondem-dashboard-enrollments-list">
 
@@ -96,21 +95,62 @@
 
 
 													<div class="container">
-														<form action="FacultyDetails" method="POST">
+														<form action="FacultyDetails" method="POST"
+															class="form-horizontal">
 
-															Name: <input type="text" name="name"
-																value="<%=request.getAttribute("profName")%>"> <br />
-															Skills: <input type="text" name="skills"
-																value="<%=request.getAttribute("Skill")%>"> <br />
-															Email: <input type="text" name="email"
-																value="<%=request.getAttribute("Email")%>"> <br />
-															Phone: <input type="text" name="phone"
-																value="<%=request.getAttribute("Phone")%>"> <br />
-															Certification: <input type="text" name="certi"
-																value="<%=request.getAttribute("Certi")%>"> <br />
-															Profession: <input type="text" name="profession"
-																value="<%=request.getAttribute("Profession")%>">
-															<br /> <input class="btn" type="submit" value="Submit">
+															<div class="control-group">
+																<label class="control-label">Name</label>
+																<div class="controls">
+																	<input type="text" name="name"
+																		value="<%=request.getAttribute("profName")%>">
+																</div>
+															</div>
+
+
+															<div class="control-group">
+																<label class="control-label">Skills</label>
+																<div class="controls">
+																	<input type="text" name="skills"
+																		value="<%=request.getAttribute("Skill")%>">
+																</div>
+															</div>
+
+
+
+															<div class="control-group">
+																<label class="control-label">Email</label>
+																<div class="controls">
+																	<input type="text" name="email"
+																		value="<%=request.getAttribute("Email")%>">
+																</div>
+															</div>
+
+															<div class="control-group">
+																<label class="control-label">Phone</label>
+																<div class="controls">
+																	<input type="text" name="phone"
+																		value="<%=request.getAttribute("Phone")%>">
+																</div>
+															</div>
+
+															<div class="control-group">
+																<label class="control-label">Certification</label>
+																<div class="controls">
+																	<input type="text" name="certi"
+																		value="<%=request.getAttribute("Certi")%>">
+																</div>
+															</div>
+
+															<div class="control-group">
+																<label class="control-label">Profession</label>
+																<div class="controls">
+																	<input type="text" name="profession"
+																		value="<%=request.getAttribute("Profession")%>">
+																</div>
+															</div>
+
+
+															<input class="btn" type="submit" value="Save Profile">
 
 														</form>
 													</div>
@@ -133,20 +173,22 @@
 					<div class="container">
 						<div class="row-fluid">
 							<div class="edondem-footer-content-primary">
-								<a href="/about" class="internal-home edondem-footer-link">About</a><a
+								<a href="http://williamwuyz.wix.com/edondemand"
+									class="internal-home edondem-footer-link">About</a><a
 									href="/about/contact" class="internal-home edondem-footer-link">Contact</a>
 
 							</div>
+
 							<div class="edondem-footer-content-secondary">
-								<a target="_blank" href="#"
+								<a target="_blank" href="https://plus.google.com/"
 									title="Follow edondem on Google Plus"
 									class="edondem-footer-link">Google+</a><a target="_blank"
-									href="#" title="Follow edondem on Twitter"
+									href="https://twitter.com/" title="Follow edondem on Twitter"
 									class="edondem-footer-link">Twitter</a><a target="_blank"
-									href="#" title="Follow edondem on Facebook"
-									class="edondem-footer-link">Facebook</a><a target="_blank"
-									href="#" title="Read the edondem blog"
-									class="edondem-footer-link">Blog</a>
+									href="http://www.facebook.com/"
+									title="Follow edondem on Facebook" class="edondem-footer-link">Facebook</a><a
+									target="_blank" href="http://googleblog.blogspot.com/"
+									title="Read the edondem blog" class="edondem-footer-link">Blog</a>
 							</div>
 						</div>
 					</div>

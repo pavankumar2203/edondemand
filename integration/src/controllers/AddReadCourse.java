@@ -25,8 +25,7 @@ public class AddReadCourse extends HttpServlet {
         PreparedStatement statement = null;
 
         try {
-             statement = con.prepareStatement("Insert into Courses (COURSE_ID, COURSE_NAME, Comments, prof_ID)"  +
-                                                "Values (?,?,?,?)"); 
+             statement = con.prepareStatement("Insert into Courses Values(?, ?, ?,?)"); 
              statement.setString(1,courseID);
              statement.setString(2,cName);
              statement.setString(3,com);            
@@ -117,7 +116,7 @@ public class AddReadCourse extends HttpServlet {
             System.out.println("Ran the operation");
 
             if(isCommit) {
-                RequestDispatcher view = request.getRequestDispatcher("FacultyDashboard.jsp");
+                RequestDispatcher view = request.getRequestDispatcher("success.jsp");
                 view.forward(request, response);
             }
             else {
