@@ -12,7 +12,7 @@
 <link href="css/home.css" rel="stylesheet" media="screen">
 </head>
 
-<body style="background-image:url('img/education.jpg')">
+<body style="background-image: url('img/education.jpg'); background-attachment:fixed;">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script>
@@ -63,7 +63,7 @@
 					<div class="container">
 							<div style="overflow: hidden" class="edondem-full-canvas">
 
-								<strong> Welcome ${requestScope['user'].username}. </strong>
+								<strong> Welcome ${requestScope['user']}. </strong>
 								<div class="row">
 									<div class="span8 edondem-front-main-section">
 										<div class="row-fluid">
@@ -78,10 +78,19 @@
 
 													<div class="container"></div>
 													<div class="container">
-														<form class="navbar-search pull-left">
+														<form class="navbar-search pull-left" action="SearchProfServlet" method="POST">
 															<input type="text" class="search-query"
-																placeholder="Search">
+																placeholder="Search" name="searchrequest">
+																
+																<input class="btn btn-primary" type="submit" name="s"
+																value="Search this course" />
 														</form>
+														
+														
+													</div>
+													
+													<div class="container">
+													${message}
 													</div>
 													<br/>
 
@@ -91,8 +100,8 @@
 															<table id="tableSelect"
 																class="table table-striped table-hover">
 																<tr>
-																	<td>RequestID</td>
-
+																	
+																	<td>Number of Students</td>
 																	<td>Number of Credits</td>
 																	<td>Course</td>
 																	<td>Category</td>
@@ -107,7 +116,7 @@
 																		<td>${element.category}</td>
 
 																		<td><input type="radio" name="checkmeout"
-																			value="${element.requestid}" />
+																			value="${element.course}" />
 																	</tr>
 
 

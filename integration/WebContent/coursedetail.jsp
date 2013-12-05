@@ -12,7 +12,7 @@
 <link href="css/home.css" rel="stylesheet" media="screen">
 <link href='css/calendar.css' rel='stylesheet' type='text/css'>
 </head>
-<body style="background-image: url('img/education.jpg')">
+<body style="background-image: url('img/education.jpg'); background-attachment:fixed;">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script type='text/javascript' src='js/Datedropdown.js'></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -99,10 +99,7 @@
 													<div class="container">
 														<table id="tableSelect" class="table "
 															style="display: grid;">
-															<tr class="success">
-																<td>CourseID</td>
-																<td>${requestScope['coursedetails'].requestid}</td>
-															</tr>
+															
 															<tr class="info">
 																<td>CourseTitle</td>
 																<td>${requestScope['coursedetails'].course}</td>

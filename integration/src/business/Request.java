@@ -1,3 +1,11 @@
+/**
+ * 
+ * This holds the request information by the students
+ * @author: Pavan Kumar Sunder and Susan Chun Xu
+ * 
+ * 
+ */
+
 package business;
 
 public class Request {
@@ -7,7 +15,7 @@ public class Request {
 	private String courseName;
 	private String credit;
 	private String category;
-	
+
 	public Request() {
 	}
 

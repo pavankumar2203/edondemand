@@ -1,3 +1,11 @@
+/**
+ * 
+ * This gets a db connection
+ * @author: Pavan Kumar Sunder and Susan Chun Xu
+ * 
+ * 
+ */
+
 package data;
 
 import java.sql.Connection;
@@ -28,7 +36,7 @@ public class ConnectionPool {
 	}
 
 	public Connection getConnection() {
-		try {			
+		try {
 			return dataSource.getConnection();
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
@@ -46,4 +54,3 @@ public class ConnectionPool {
 		}
 	}
 }
-

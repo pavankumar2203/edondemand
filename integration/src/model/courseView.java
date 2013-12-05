@@ -16,7 +16,7 @@ public class courseView {
 	static final String USER = "root";
 	static final String PASS = "root";
 
-	public static Course list(int id) {
+	public static Course list(String id) {
 
 		Connection conn = null;
 		Statement stmt = null;
@@ -31,18 +31,18 @@ public class courseView {
 			conn = (Connection) DriverManager.getConnection(DB_URL, USER, PASS);
 
 			// STEP 4: Execute a query
-			System.out.println("Creating statement...");
+			System.out.println("Creating statement..." + id);
 			stmt = ((java.sql.Connection) conn).createStatement();
 			String sql;
-			sql = "select * from request where REQUEST_ID='"+id+"'";
+			sql = "select Count(*),sum(credit),COURSE_NAME,CATEGORY from request where Course_Name ='"+id+"'";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			// STEP 5: Extract data from result set
 			while (rs.next()) {
 				// Retrieve by column name
-				int rid = rs.getInt("REQUEST_ID");
+				int rid = rs.getInt("Count(*)");
 				// int stdid = rs.getInt("STUDENT_ID");
-				int offer = rs.getInt("CREDIT");
+				int offer = rs.getInt("SUM(CREDIT)");
 				String cour = rs.getString("COURSE_NAME");
 				String category = rs.getString("CATEGORY");
 

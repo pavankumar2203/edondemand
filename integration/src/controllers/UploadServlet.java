@@ -1,3 +1,11 @@
+/**
+ * 
+ * This uploads the video on to the server
+ * @author: Pavan Kumar Sunder and Susan Chun Xu
+ * 
+ * 
+ */
+
 package controllers;
 
 import java.io.*;

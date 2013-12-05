@@ -3,7 +3,9 @@ package data;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import business.Request;
 
@@ -41,7 +43,12 @@ public class RequestDB {
 			ps.setString(2, request.getCourseName());
 			ps.setString(3, request.getCredit());
 			ps.setString(4, request.getCategory());
-											
+			try {
+				returnvalue = (ps.executeUpdate() == 1);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 								
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -58,12 +65,54 @@ public class RequestDB {
 				e.printStackTrace();
 			}
 		}
-		try {
-			returnvalue = (ps.executeUpdate() == 1);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+	
 		return returnvalue;
 	}
+	
+	
+	public static ArrayList<Request> getRequest(String studentId) {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Request> requestCourses = new ArrayList<Request>();
+		
+		try {
+		Class.forName(JDBC_DRIVER);
+		// STEP 3: Open a connection
+		
+		connection = (Connection) DriverManager.getConnection(DB_URL, username, password);
+		String courseSQL = "SELECT COURSE_NAME, CREDIT, CATEGORY "
+		+ "FROM REQUEST "
+		+ "WHERE STUDENT_ID = '" + studentId + "';";
+		
+		ps = connection.prepareStatement(courseSQL);
+		rs = ps.executeQuery(courseSQL);
+		
+		//boolean re = ;
+		while (rs.next()) {
+		Request requestCourse = new Request();
+		requestCourse.setCourseName(rs.getString("COURSE_NAME"));
+		requestCourse.setCredit(rs.getString("CREDIT"));
+		requestCourse.setCategory(rs.getString("CATEGORY"));
+		requestCourses.add(requestCourse);
+		System.out.println(requestCourse.getRequestId());
+		}
+		} catch (SQLException e) {
+		e.printStackTrace();
+		return null;
+		} catch (Exception e) {
+		// Handle errors for Class.forName
+		e.printStackTrace();
+		} finally {
+		//DBUtil.closeResultSet(rs);
+		//DBUtil.closePreparedStatement(ps);
+		try {
+		connection.close();
+		} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		}
+		return requestCourses;
+		}
+
 }

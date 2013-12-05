@@ -10,7 +10,7 @@
 <link href="css/home.css" rel="stylesheet" media="screen">
 
 </head>
-<body style="background-image: url('img/education.jpg')">
+<body style="background-image: url('img/education.jpg'); background-attachment:fixed;">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script type='text/javascript' src='js/Datedropdown.js'></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -125,7 +125,7 @@
 															<embed width="320" height="240" src="sample.mp4">
 														</object></video>
 
-														<form action="addCourseServlet" method="post"
+														<form action="addCreditServlet" method="POST"
 															class="form-horizontal">
 															<p>If you want to take this course, please enter the
 																credits here:</p>
@@ -134,6 +134,11 @@
 																type="submit" value="enter credits" class="btn">
 														</form>
 													</div>
+
+
+								<p class="errorMsg">${message}</p>
+
+
 
 												</div>
 

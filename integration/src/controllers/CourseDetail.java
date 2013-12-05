@@ -1,3 +1,11 @@
+/**
+ * 
+ * This returns the details of a course
+ * @author: Pavan Kumar Sunder and Susan Chun Xu
+ * 
+ * 
+ */
+
 package controllers;
 
 import java.io.IOException;
@@ -37,7 +45,6 @@ public class CourseDetail extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-	
 	}
 
 	/**
@@ -48,14 +55,14 @@ public class CourseDetail extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String course = request.getParameter("checkmeout");
-		Course cv = courseView.list(Integer.parseInt(course));
+		Course cv = courseView.list(course);
 		System.out.println(course);
-		if(course == null)
-		request.setAttribute("course", "you have not chosen a course");
+		if (course == null)
+			request.setAttribute("course", "you have not chosen a course");
 		else
-		request.setAttribute("course", course);
-		
-		request.setAttribute("coursedetails",cv);
+			request.setAttribute("course", course);
+
+		request.setAttribute("coursedetails", cv);
 		RequestDispatcher rd = null;
 
 		rd = request.getRequestDispatcher("/coursedetail.jsp");

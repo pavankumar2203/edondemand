@@ -10,7 +10,8 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/home.css" rel="stylesheet" media="screen">
 </head>
-<body style="background-image:url('img/education.jpg')">
+<body
+	style="background-image: url('img/education.jpg'); background-attachment: fixed;">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
@@ -107,9 +108,34 @@
 									<div style="margin-left: -1px;" class="span5">
 										<div style="padding: 20px;">
 											<h3>No Account Yet?</h3>
-											<p>
-												<a href="/signup" class="internal-auth">Sign up</a>&nbsp;today.
-											</p>
+											
+
+											<form action="signservlet" method="POST" name="loginform">
+
+												<div class="control-group">
+													<select name="signas">
+														<option>Student</option>
+														<option>Professor</option>
+													</select>
+												</div>
+
+												<div>
+													<div class="control-group">
+														<div class="controls">
+															<button type="submit" style="margin-right: 10px"
+																class="btn btn-success edondem-signin-button">Sign
+																up</button>
+															<button class="btn edondem-signin-button-waiting hide">
+																<img
+																	src="https://d2wvvaown1ul17.cloudfront.net/site-static/images/icons/loading.gif">
+															</button>
+														
+															<p class="errorMsg">${message}</p>
+														</div>
+													</div>
+												</div>
+												
+												</form>
 										</div>
 									</div>
 								</div>
@@ -121,20 +147,21 @@
 					<div class="container">
 						<div class="row-fluid">
 							<div class="edondem-footer-content-primary">
-								<a href="http://williamwuyz.wix.com/edondemand" class="edondem-footer-link">About</a><a href="#"
+								<a href="http://williamwuyz.wix.com/edondemand"
+									class="edondem-footer-link">About</a><a href="#"
 									class="edondem-footer-link">Contact</a>
 							</div>
-							
+
 							<div class="edondem-footer-content-secondary">
 								<a target="_blank" href="https://plus.google.com/"
 									title="Follow edondem on Google Plus"
 									class="edondem-footer-link">Google+</a><a target="_blank"
 									href="https://twitter.com/" title="Follow edondem on Twitter"
 									class="edondem-footer-link">Twitter</a><a target="_blank"
-									href="http://www.facebook.com/" title="Follow edondem on Facebook"
-									class="edondem-footer-link">Facebook</a><a target="_blank"
-									href="http://googleblog.blogspot.com/" title="Read the edondem blog"
-									class="edondem-footer-link">Blog</a>
+									href="http://www.facebook.com/"
+									title="Follow edondem on Facebook" class="edondem-footer-link">Facebook</a><a
+									target="_blank" href="http://googleblog.blogspot.com/"
+									title="Read the edondem blog" class="edondem-footer-link">Blog</a>
 							</div>
 						</div>
 					</div>

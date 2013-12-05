@@ -1,6 +1,14 @@
+/**
+ * 
+ * This holds the student information
+ * @author: Pavan Kumar Sunder and Susan Chun Xu
+ * 
+ * 
+ */
+
 package business;
 
-public class Student{
+public class Student {
 
 	private String studentId;
 	private String studFname;
@@ -9,10 +17,10 @@ public class Student{
 	private String studAge;
 	private String studEmail;
 	private String studScore;
-	
+
 	public Student() {
 	}
-	
+
 	public Student(String studentId, String studFname, String studLname,
 			String studGender, String studAge, String studEmail,
 			String studScore) {
@@ -25,7 +33,7 @@ public class Student{
 		this.studEmail = studEmail;
 		this.studScore = studScore;
 	}
-	
+
 	public String getStudentId() {
 		return studentId;
 	}

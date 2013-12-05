@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import business.Professor;
 import business.Student;
 
 public class StudentDB {
@@ -15,6 +16,42 @@ public class StudentDB {
 	private static String username = "root";
 	private static String password = "root";
 	private static Connection connection = null;
+	
+	
+	public static boolean addStudent(Student student) {
+		  PreparedStatement ps = null;
+		  boolean returnvalue = false;
+		  
+		  try {
+		   Class.forName(JDBC_DRIVER);
+		   System.out.println("Connecting to database...");
+		   connection = (Connection) DriverManager.getConnection(DB_URL, username, password);
+		   String query = "INSERT INTO STUDENTS (STUD_FNAME, STUD_LNAME, STUD_GENDER, STUD_AGE, STUD_EMAIL) "
+		     + "VALUES ( ?, ?, ?, ?, ?)";
+		   ps = connection.prepareStatement(query);
+		   ps.setString(1, student.getStudFname());
+		   ps.setString(2, student.getStudLname());
+		   ps.setString(3, student.getStudGender());
+		   ps.setString(4, student.getStudAge());
+		   ps.setString(5, student.getStudEmail());
+		   returnvalue = (ps.executeUpdate() == 1); 
+		           
+		  } catch (SQLException e) {
+		   e.printStackTrace();
+		   return false;
+		  } catch (Exception e) {
+		   e.printStackTrace();
+		  } finally {
+		   try {
+		    connection.close();
+		   } catch (SQLException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		   }
+		  }
+		  return returnvalue;
+		 }
+
 	
 	public static Student getStudent(String studentId) {
 		//ConnectionPool pool = ConnectionPool.getInstance();
@@ -65,5 +102,78 @@ public class StudentDB {
 			}
 		}
 		return student;
+	}
+
+
+	public static int getcount() {
+		// TODO Auto-generated method stub
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		int returnvalue = 0;
+		try {
+			Class.forName(JDBC_DRIVER);
+			System.out.println("Connecting to database... get count");
+			connection = (Connection) DriverManager.getConnection(DB_URL, username, password);
+			String query = "SELECT max(STUDENT_ID) FROM students";
+			ps = connection.prepareStatement(query);
+			rs = ps.executeQuery(query);
+			
+			if(rs.next())
+			{
+				returnvalue = rs.getInt(1);
+				//returnvalue++;
+				
+			}
+		}
+		 catch (SQLException e) {
+				e.printStackTrace();
+				return 0;
+			} catch (Exception e) {
+				// Handle errors for Class.forName
+				e.printStackTrace();
+			} finally {
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return returnvalue;
+	}
+
+
+	public static boolean adddummyStudent(Professor newProfessor) {
+		  PreparedStatement ps = null;
+		  boolean returnvalue = false;
+		  
+		  try {
+		   Class.forName(JDBC_DRIVER);
+		   System.out.println("Connecting to database...");
+		   connection = (Connection) DriverManager.getConnection(DB_URL, username, password);
+		   String query = "INSERT INTO STUDENTS (STUD_FNAME, STUD_LNAME, STUD_GENDER, STUD_AGE, STUD_EMAIL) "
+		     + "VALUES ( ?, ?, ?, ?, ?)";
+		   ps = connection.prepareStatement(query);
+		   ps.setString(1, newProfessor.getProfName());
+		   ps.setString(2, newProfessor.getProfName());
+		   ps.setString(3, "M");
+		   ps.setString(4, "null");
+		   ps.setString(5, newProfessor.getProfEmail());
+		   returnvalue = (ps.executeUpdate() == 1); 
+		           
+		  } catch (SQLException e) {
+		   e.printStackTrace();
+		   return false;
+		  } catch (Exception e) {
+		   e.printStackTrace();
+		  } finally {
+		   try {
+		    connection.close();
+		   } catch (SQLException e) {
+		    // TODO Auto-generated catch block
+		    e.printStackTrace();
+		   }
+		  }
+		  return returnvalue;
 	}
 }

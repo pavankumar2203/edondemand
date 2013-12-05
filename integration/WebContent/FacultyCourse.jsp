@@ -12,7 +12,7 @@
 <link href="css/home.css" rel="stylesheet" media="screen">
 
 </head>
-<body style="background-image: url('img/education.jpg')">
+<body style="background-image: url('img/education.jpg'); background-attachment:fixed;">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script type='text/javascript' src='js/Datedropdown.js'></script>
 	<script src="js/bootstrap.min.js"></script>

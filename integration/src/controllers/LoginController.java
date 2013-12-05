@@ -1,11 +1,15 @@
+/**
+ * 
+ * This gets the login information and does the authentication
+ * @author: Pavan Kumar Sunder and Susan Chun Xu
+ * 
+ * 
+ */
+
+
 package controllers;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -18,7 +22,6 @@ import model.Authenticator;
 import model.Course;
 import model.ListOfCourses;
 import model.User;
-import sun.text.normalizer.ICUBinary.Authenticate;
 
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;

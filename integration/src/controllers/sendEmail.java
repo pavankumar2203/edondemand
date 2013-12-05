@@ -1,3 +1,13 @@
+/**
+ * 
+ * This sends an email
+ * @author: Pavan Kumar Sunder and Susan Chun Xu
+ * 
+ * 
+ */
+
+
+
 package controllers;
 
 import java.io.IOException;

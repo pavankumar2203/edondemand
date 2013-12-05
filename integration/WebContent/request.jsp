@@ -8,7 +8,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/home.css" rel="stylesheet" media="screen">
 </head>
-<body style="background-image:url('img/education.jpg')">
+<body style="background-image: url('img/education.jpg'); background-attachment:fixed;">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script type='text/javascript' src='js/Datedropdown.js'></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -38,7 +38,7 @@
 										<div class="nav-collapse collapse">
 											<ul class="nav">
 											<li><a href="/Ed-On-Demand/StudProfile">Edit Profile</a></li>
-												<li ><a href="/Ed-On-Demand/">Home</a></li>
+												<li ><a href="/Ed-On-Demand/student.jsp">Home</a></li>
 
 												<li class="active"><a href="/Ed-On-Demand/request.jsp">Search
 														Course</a></li>

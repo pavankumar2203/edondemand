@@ -1,3 +1,11 @@
+/**
+ * 
+ * This holds the course information
+ * @author: Pavan Kumar Sunder and Susan Chun Xu
+ * 
+ * 
+ */
+
 package business;
 
 public class Course1 {
@@ -6,11 +14,12 @@ public class Course1 {
 	private String courseName;
 	private String comments;
 	private String profId;
-	
+
 	public Course1() {
 	}
-	
-	public Course1(String courseId, String courseName, String comments, String profId) {
+
+	public Course1(String courseId, String courseName, String comments,
+			String profId) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
@@ -41,7 +50,7 @@ public class Course1 {
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-	
+
 	public String getProfId() {
 		return profId;
 	}

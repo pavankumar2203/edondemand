@@ -7,7 +7,7 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/home.css" rel="stylesheet" media="screen">
 </head>
-<body style="background-image: url('img/education.jpg')">
+<body style="background-image: url('img/education.jpg'); background-attachment:fixed;">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script type='text/javascript' src='js/Datedropdown.js'></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -32,7 +32,7 @@
 											<ul class="nav">
 												<li><a href="/Ed-On-Demand/StudProfile">Edit
 														Profile</a></li>
-												<li class="active"><a href="#">Home</a></li>
+												<li class="active"><a href="/Ed-On-Demand/student.jsp">Home</a></li>
 
 												<li><a href="/Ed-On-Demand/request.jsp">Search
 														Course</a></li>
@@ -134,7 +134,7 @@
 																<label class="control-label">Credits</label>
 																<div class="controls">
 																	<input type="text" name="credits"
-																		value="<%=request.getAttribute("Credits")%>">
+																		value="<%=request.getAttribute("Credits")%>" readonly="readonly">
 																</div>
 															</div>
 

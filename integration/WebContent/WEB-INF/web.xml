@@ -41,6 +41,26 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>AddProfessorServlet</display-name>
+    <servlet-name>AddProfessorServlet</servlet-name>
+    <servlet-class>servlet.AddProfessorServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddProfessorServlet</servlet-name>
+    <url-pattern>/addProfessorServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddStudentServlet</display-name>
+    <servlet-name>AddStudentServlet</servlet-name>
+    <servlet-class>servlet.AddStudentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddStudentServlet</servlet-name>
+    <url-pattern>/addStudentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>LoginController</display-name>
     <servlet-name>LoginController</servlet-name>
     <servlet-class>controllers.LoginController</servlet-class>
@@ -69,7 +89,6 @@
     <servlet-name>sendEmail</servlet-name>
     <url-pattern>/sendEmail</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>UploadServlet</display-name>
@@ -80,7 +99,6 @@
     <servlet-name>UploadServlet</servlet-name>
     <url-pattern>/UploadServlet</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>FacultyDetails</display-name>
@@ -91,7 +109,6 @@
     <servlet-name>FacultyDetails</servlet-name>
     <url-pattern>/FacultyDetails</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <description></description>
     <display-name>StudProfile</display-name>
@@ -102,11 +119,7 @@
     <servlet-name>StudProfile</servlet-name>
     <url-pattern>/StudProfile</url-pattern>
   </servlet-mapping>
-  
-
-
-
-<servlet>
+  <servlet>
     <description></description>
     <display-name>AddReadCourse</display-name>
     <servlet-name>AddReadCourse</servlet-name>
@@ -116,14 +129,41 @@
     <servlet-name>AddReadCourse</servlet-name>
     <url-pattern>/AddReadCourse</url-pattern>
   </servlet-mapping>
-  
-  
-  <context-param> 
-    <description>Location to store uploaded file</description> 
-    <param-name>file-upload</param-name> 
+  <context-param>
+    <description>Location to store uploaded file</description>
+    <param-name>file-upload</param-name>
     <param-value>
-         C:\Program Files\Apache Software Foundation\Tomcat 6.0\webapps\data\sample
-     </param-value> 
-</context-param>
-
+         C:\Program Files\Apache Software Foundation\Tomcat 6.0\webapps\Ed-On-Demand\Video
+     </param-value>
+  </context-param>
+  <servlet>
+    <description></description>
+    <display-name>SearchProfServlet</display-name>
+    <servlet-name>SearchProfServlet</servlet-name>
+    <servlet-class>controllers.SearchProfServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchProfServlet</servlet-name>
+    <url-pattern>/SearchProfServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SignServlet</display-name>
+    <servlet-name>SignServlet</servlet-name>
+    <servlet-class>servlet.SignServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SignServlet</servlet-name>
+    <url-pattern>/signservlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddCreditServlet</display-name>
+    <servlet-name>AddCreditServlet</servlet-name>
+    <servlet-class>servlet.AddCreditServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddCreditServlet</servlet-name>
+    <url-pattern>/addCreditServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

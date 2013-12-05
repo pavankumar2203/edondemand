@@ -17,6 +17,7 @@ public class LoginDB {
 	private static String password = "root";
 	private static Connection connection = null;
 	
+	
 	public static Login getLogin(String userId, String pwd) {
 		//ConnectionPool pool = ConnectionPool.getInstance();
 		//Connection connection = pool.getConnection();
@@ -68,4 +69,97 @@ public class LoginDB {
 		}
 		return login;
 	}
-}
+	public boolean insertlogininfo(int nextid,int nextstdid, String profEmail, String pwd) {
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		Login login = null;
+
+		
+			String requestSQL = "INSERT INTO login "
+					+ "VALUES (LOGIN_ID, ?, ?, ?, ?)";
+			
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				// STEP 3: Open a connection
+				System.out.println("Connecting to database... logindb");
+				connection = (Connection) DriverManager.getConnection(DB_URL, username, password);
+				ps = connection.prepareStatement(requestSQL);
+				//ps.setString(1, x);
+				ps.setString(1, profEmail);
+				ps.setString(2, pwd);
+				ps.setInt(3, nextid);
+				ps.setInt(4, nextid);
+						
+				ps.executeUpdate();
+				return true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} catch (Exception e) {
+				// Handle errors for Class.forName
+				e.printStackTrace();
+			} finally {
+				//DBUtil.closePreparedStatement(ps);
+				//pool.freeConnection(connection);
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		
+			return false;
+		}
+
+	
+	public boolean insertlogininfostd(int nextid,int nextstdid, String profEmail, String pwd) {
+
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		Login login = null;
+
+		
+			String requestSQL = "INSERT INTO login "
+					+ "VALUES (LOGIN_ID, ?, ?, ?, ?)";
+			
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				// STEP 3: Open a connection
+				System.out.println("Connecting to database... logindb");
+				connection = (Connection) DriverManager.getConnection(DB_URL, username, password);
+				ps = connection.prepareStatement(requestSQL);
+				//ps.setString(1, x);
+				ps.setString(1, profEmail);
+				ps.setString(2, pwd);
+				ps.setInt(3, nextid);
+				ps.setInt(4, nextid);
+						
+				ps.executeUpdate();
+				return true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			} catch (Exception e) {
+				// Handle errors for Class.forName
+				e.printStackTrace();
+			} finally {
+				//DBUtil.closePreparedStatement(ps);
+				//pool.freeConnection(connection);
+				try {
+					connection.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		
+			return false;
+		}
+
+	
+	}
+

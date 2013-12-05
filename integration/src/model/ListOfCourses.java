@@ -33,15 +33,15 @@ public class ListOfCourses {
 			System.out.println("Creating statement...");
 			stmt = ((java.sql.Connection) conn).createStatement();
 			String sql;
-			sql = "select * from request";
+			sql = "SELECT Count(*),sum(Credit),COURSE_NAME,CATEGORY FROM edondem.request group by COURSE_NAME order by sum(Credit) desc;";
 			ResultSet rs = stmt.executeQuery(sql);
 
 			// STEP 5: Extract data from result set
 			while (rs.next()) {
 				// Retrieve by column name
-				int id = rs.getInt("REQUEST_ID");
+				int id = rs.getInt("Count(*)");
 				// int stdid = rs.getInt("STUDENT_ID");
-				int offer = rs.getInt("CREDIT");
+				int offer = rs.getInt("sum(Credit)");
 				String cour = rs.getString("COURSE_NAME");
 				String category = rs.getString("CATEGORY");
 

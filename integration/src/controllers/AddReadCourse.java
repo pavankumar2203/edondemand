@@ -1,3 +1,11 @@
+/**
+ * 
+ * This holds read course information and also add new courses from professor side
+ * @author: Latha and Ishant
+ * 
+ * 
+ */
+
 package controllers;
 
 import java.io.IOException;

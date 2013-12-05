@@ -1,3 +1,12 @@
+/**
+ * 
+ * This gets the profile of the student
+ * @author: Pavan Kumar Sunder and Susan Chun Xu
+ * 
+ * 
+ */
+
+
 package controllers;
 
 import java.io.IOException;
@@ -13,7 +22,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import business.Login;
 import business.Student;
 import data.StudentDB;
 
@@ -38,6 +49,9 @@ public class StudProfile extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		Login std = (Login) session.getAttribute("login");
 		try {
 			// declare a connection by using Connection interface
 			Connection connection = null;
@@ -50,7 +64,7 @@ public class StudProfile extends HttpServlet {
 			PreparedStatement statement = null;
 
 			statement = connection
-					.prepareStatement("Select * FROM STUDENTS where STUDENT_ID=1");
+					.prepareStatement("Select * FROM STUDENTS where STUDENT_ID=" + std.getStudentId());
 			ResultSet result = statement.executeQuery();
 			boolean re = result.next();
 			System.out.println(re + result.getString(2) + "pavns");
@@ -131,10 +145,14 @@ public class StudProfile extends HttpServlet {
 			statement = connection
 					.prepareStatement("Select * FROM STUDENTS where STUDENT_ID=1");
 			ResultSet result = statement.executeQuery();
+			
 
+			HttpSession session = request.getSession();
+			Login std = (Login) session.getAttribute("login");
+			
 			if (result.next()) {
 				PreparedStatement pst = connection
-						.prepareStatement("update STUDENTS SET STUD_FNAME=?,STUD_LNAME=?,STUD_GENDER=?,STUD_AGE=?,STUD_EMAIL=?,STUD_SCORE=? WHERE STUDENT_ID=1");
+						.prepareStatement("update STUDENTS SET STUD_FNAME=?,STUD_LNAME=?,STUD_GENDER=?,STUD_AGE=?,STUD_EMAIL=?,STUD_SCORE=? WHERE STUDENT_ID="+ std.getStudentId());
 
 				pst.setString(1, F_Name);
 				pst.setString(2, L_Name);
@@ -159,7 +177,7 @@ public class StudProfile extends HttpServlet {
 				i = pst.executeUpdate();
 			}
 			Student student = StudentDB
-					.getStudent("1");
+					.getStudent(std.getStudentId());
 			request.setAttribute("student", student);
 			if (i != 0) {
 				RequestDispatcher view = request

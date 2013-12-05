@@ -4,11 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <title>Student Profile</title>
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="css/home.css" rel="stylesheet" media="screen">
 </head>
-<body style="background-image: url('img/education.jpg')">
+<body style="background-image: url('img/education.jpg'); background-attachment:fixed;">
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script type='text/javascript' src='js/Datedropdown.js'></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -37,7 +38,7 @@
 											<ul class="nav">
 												<li><a href="/Ed-On-Demand/StudProfile">Edit
 														Profile</a></li>
-												<li class="active"><a href="#">Home</a></li>
+												<li class="active"><a href="/Ed-On-Demand/student.jsp">Home</a></li>
 
 												<li><a href="/Ed-On-Demand/request.jsp">Search
 														Course</a></li>
@@ -57,7 +58,7 @@
 
 							</div>
 						</div>
-					
+
 
 					</div>
 					<div role="navigation" class="edondem-banner"></div>
@@ -97,7 +98,7 @@
 
 
 															<table border="0" cellspacing="15" width="80%"
-																id="dataTable" class = "table">
+																id="dataTable" class="table">
 																<col align="right" width="150" />
 																<col align="left" width="400" />
 																<tr>
@@ -128,11 +129,50 @@
 															<div class="linespace"></div>
 															<input class="btn" type="submit" value="Search Courses">
 														</form>
-														<p class="errorMsg">${message}</p>
 
-														<div class="clear"></div>
 
 													</div>
+													<div class="row-fluid">
+														<div class="span12">
+															<div style="margin-bottom: 10px;" class="heading-banner">
+
+																<h1>
+																	Your have already registered for:<small
+																		id="edondem-profile-editor-status"
+																		style="font-size: 12px; line-height: 12px;"></small>
+																</h1>
+															</div>
+														</div>
+													</div>
+													<div class="container">
+
+														<table border="0" cellspacing="15" width="80%"
+															id="dataTable" class="table">
+															<tr>
+																<th>Course Name</th>
+																<th>Credits you spent</th>
+																<th>Category</th>
+															</tr>
+															<c:forEach var="requestCourse" items="${requestCourses}">
+
+																<tr>
+																	<td>${requestCourse.courseName}</td>
+																	<td>${requestCourse.credit}</td>
+																	<td>${requestCourse.category}</td>
+																</tr>
+
+															</c:forEach>
+														</table>
+
+
+													</div>
+
+
+													<p class="errorMsg">${message}</p>
+
+													<div class="clear"></div>
+
+
 
 												</div>
 

@@ -45,7 +45,7 @@ public class AddCourseServlet extends HttpServlet{
 		String courseName = request.getParameter("courseName");
 		String credits = request.getParameter("credits");
 		String category = request.getParameter("category");
-		String url = "";
+		String url = "/request.jsp";
 		String message = "";
 		boolean bool = true;
 		
@@ -80,6 +80,8 @@ public class AddCourseServlet extends HttpServlet{
 			
 		}
 		request.setAttribute("message", message);
+		
+		 
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

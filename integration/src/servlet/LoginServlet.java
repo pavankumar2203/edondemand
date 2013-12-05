@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,8 +16,10 @@ import model.Course;
 import model.ListOfCourses;
 import model.User;
 import data.LoginDB;
+import data.RequestDB;
 import data.StudentDB;
 import business.Login;
+import business.Request;
 import business.Student;
 
 /**
@@ -71,16 +74,28 @@ public class LoginServlet extends HttpServlet {
 					Student student = StudentDB
 							.getStudent(login.getStudentId());
 					session.setAttribute("student", student);
+					
+					ArrayList<Request> requestCourses = RequestDB
+							.getRequest(login.getStudentId());
+							session.setAttribute("requestCourses", requestCourses);
 					url = "/student.jsp";
 				}
 				if (loginas.equalsIgnoreCase("Professor")) {
 					// Professor professor =
 					// StudentDB.getStudent(login.getStudentId());
-					// session.setAttribute("student", student);
+					Student professor = StudentDB
+							.getStudent(login.getProfId());
+					 session.setAttribute("professor", professor);
 					// url = "/request.jsp";
+					
+					
+						
+					
 					RequestDispatcher rd = null;
-					User user = new User(userId, pwd);
-					request.setAttribute("user", user);
+					//User user = new User(userId, pwd);
+					request.setAttribute("user", login.getUserId());
+					
+					
 					List<Course> courselist = ListOfCourses.list();
 					request.setAttribute("course", courselist); // Will be
 																// available as
